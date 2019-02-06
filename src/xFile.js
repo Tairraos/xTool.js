@@ -1,22 +1,69 @@
 let fs = require('fs'),
     path = require('path'),
-    xUtil = require('../xUtil');
+    xUtil = require('./xUtil');
 
 let xFile = {
     /**
      * get file list from a root path
      * @param {string} root - file root path
      * @param {obj} setting
-     *     root: {string} file root
      *     relative: {boolean} return absolute path or path relative from root. [default is true]
      *     recursive: {boolean} recursive to sub directory. [default is false]
-     *     find: {string|regexp|array} provide match patten or patten list. [default is return all files]
-     *     ignore: {string|regexp|array} provide ignore patten or patten list. [default is none]
+     *     find: {string|regexp|array} provide human patten or human patten list to define filename matcher. [default is "*"]
+     *     ignore: {string|regexp|array} provide human patten or human patten list to define which filename will be ignored. [default is none]
      */
     getFileList: function (root, setting) {
-
+        let findPatten = xFile.resolvePatten(setting.find || "*"),
+            ignorePatten = xFile.resolvePatten(setting.ignore || "");
 
     },
+
+    /**
+     * test is filepath match every patten of patten list
+     * @param {string} filepath 
+     * @param {array} pattenList - patten array 
+     * @return {boolean}
+     */
+    matcher: function (filepath, pattenList) {
+        let matched = false;
+        if (xUtil.typeof(pattenList) !== "array") {
+            pattenList = xFile.resolvePatten(pattenList);
+        }
+
+        pattenList.forEach((patten) => {
+            if (xUtil.typeof(patten) === "regexp") {
+                matched = matched || patten.test(filepath);
+            }
+        });
+
+        return matched;
+    },
+
+    /**
+     * 
+     * @param {string|regexp|array} patten
+     * @return {array} will return an array of patten
+     */
+    resolvePatten: function (patten) {
+        return xUtil.flatArray(patten).map((item) => {
+            switch (xUtil.typeof(item)) {
+                case "number":
+                    item = item.toString();
+                case "string":
+                    if (item.substr(-1) === "/") {
+                        return new RegExp(item.replace(/\./g, "\\.").replace(/\*/g, ".*").replace(/\?/g, ".?"));
+                    } else {
+                        return new RegExp("^" + item.replace(/\./g, "\\.").replace(/\*/g, ".*").replace(/\?/g, ".?") + "$");
+                    }
+                case "regexp":
+                    return item;
+                default:
+                    return /^$/;
+            }
+        });
+    },
+
+
 
     /**
      * get file list for a giving root path
@@ -125,8 +172,6 @@ let xFile = {
         return fileTemplate.join("\n");
     },
 
-
-
     /**
      * 
      * @param logLine
@@ -139,3 +184,5 @@ let xFile = {
 }
 
 module.exports = xFile;
+
+console.log(xFile.resolvePatten(["*.*", "*.*"]));
