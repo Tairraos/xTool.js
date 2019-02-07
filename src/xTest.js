@@ -1,8 +1,10 @@
-let xFile = require('./xFile');
+let fs = require('fs'),
+    path = require('path'),
+    xFile = require('./xFile');
 
-console.log(xFile.getFileList("../",{
-    absolute:true,
-    recursive:true,
-    find:"*.*",
-    ignore: []
-}))
+console.log(xFile.getFileList("/Users/xiaole/Workspace", {
+    recursive: true,
+    absolute: 1,
+    find: ["*.test.js"],
+    ignore:["node_modules/", ".git/"]
+}));
