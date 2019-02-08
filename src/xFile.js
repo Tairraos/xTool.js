@@ -58,6 +58,7 @@ class xFile {
      * @param {boolean} [setting.recursive] - recursive to sub directory. [default is false]
      * @param {(string|regexp|array)} [setting.find] - provide human patten or human patten list to define filename matcher. [default is "*"]
      * @param {(string|regexp|array)} [setting.ignore] - provide human patten or human patten list to define which filename will be ignored. [default is none]
+     * @return {array} list of file with absolute/relative path
      */
     getFileList(root, setting) {
         setting = setting || {};
