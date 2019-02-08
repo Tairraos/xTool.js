@@ -1,8 +1,8 @@
 let fs = require('fs'),
     path = require('path'),
-    xFile = require('./src/xFile');
+    x = require('./index');
 
-console.log(xFile.readDir(".", {
+console.log(x.readDir(".", {
     find: ["*.test.js", "*.json"],
     ignore: ["node_modules/", ".git/"],
     recursive: true,

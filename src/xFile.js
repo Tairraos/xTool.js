@@ -88,4 +88,4 @@ class xFile {
     }
 };
 
-module.exports = new xFile();
+module.exports = new xFile;

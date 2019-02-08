@@ -31,4 +31,4 @@ class xUtil {
     }
 };
 
-module.exports = new xUtil();
+module.exports = new xUtil;
