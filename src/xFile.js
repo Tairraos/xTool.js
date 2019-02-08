@@ -40,7 +40,7 @@ class xFile {
             fileName = isDir ? "" : path.basename(item),
             filePath = isDir ? item + "/" : item;
         if (xUtil.typeof(pattenList) !== "array") {
-            pattenList = this.private resolvePatten(pattenList);
+            pattenList = this._resolvePatten(pattenList);
         }
         pattenList.forEach((patten) => {
             if (xUtil.typeof(patten) === "regexp") {
@@ -62,8 +62,8 @@ class xFile {
      */
     readDir(root, setting) {
         setting = setting || {};
-        let findPattenList = this.private resolvePatten(setting.find || "*"),
-            ignorePattenList = this.private resolvePatten(setting.ignore || ""),
+        let findPattenList = this._resolvePatten(setting.find || "*"),
+            ignorePattenList = this._resolvePatten(setting.ignore || ""),
             absolute = !!setting.absolute,
             recursive = !!setting.recursive,
             fileArray = [],
