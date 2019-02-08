@@ -1,22 +1,25 @@
-let xUtil = {
+/**
+ * Utility of xTool
+ */
+class xUtil {
     /**
      * return the truly type of arg
-     * @param {any} arg 
+     * @param {*} arg 
      */
-    typeof: function (arg) {
+    typeof (arg) {
         return Object.prototype.toString.call(arg).slice(8, -1).toLowerCase();
-    },
+    }
 
     /**
      * recursive embeded array to a flat array, and will remove duplicated value
-     * @param {array|any} item 
+     * @param {(array|*)} item 
      */
-    flatArray: function (arg) {
+    flatArray(arg) {
         let pattenArray = [],
             recursiveArray = (param) => {
-                if (xUtil.typeof(param) === "array") {
+                if (this.typeof(param) === "array") {
                     param.forEach((subParam) =>
-                        (xUtil.typeof(subParam) === "array") ? recursiveArray(subParam) : pattenArray.push(subParam));
+                        (this.typeof(subParam) === "array") ? recursiveArray(subParam) : pattenArray.push(subParam));
                 } else {
                     pattenArray.push(param);
                 }
@@ -26,4 +29,4 @@ let xUtil = {
     }
 };
 
-module.exports = xUtil;
+module.exports = new xUtil();

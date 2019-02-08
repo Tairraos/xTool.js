@@ -2,13 +2,16 @@ let fs = require('fs'),
     path = require('path'),
     xUtil = require('./xUtil');
 
-let xFile = {
+/**
+ * File relative tools of xTool
+ */
+class xFile {
     /**
-     * 
-     * @param {string|regexp|array} patten
+     * Resolve patten, transfer wildcard patten to regexp format
+     * @param {(string|regexp|array)} patten
      * @return {array} will return an array of patten
      */
-    resolvePatten: function (patten) {
+    resolvePatten(patten) {
         return xUtil.flatArray(patten).map((item) => {
             switch (xUtil.typeof(item)) {
                 case "number":
@@ -23,45 +26,43 @@ let xFile = {
                     return /^$/;
             }
         });
-    },
+    }
 
     /**
-     * test is filepath match every patten of patten list
-     * @param {string} filepath 
+     * Test item, does this item match at least one patten of list.
+     * @param {string} item - item of directory list, file or sub-directory
      * @param {array} pattenList - patten array
-     * @param {boolean} isDir [optional]
+     * @param {boolean} [isDir] - optional
      * @return {boolean}
      */
-    matcher: function (item, pattenList, isDir) {
+    matcher(item, pattenList, isDir) {
         let matched = false,
             fileName = isDir ? "" : path.basename(item),
             filePath = isDir ? item + "/" : item;
         if (xUtil.typeof(pattenList) !== "array") {
-            pattenList = xFile.resolvePatten(pattenList);
+            pattenList = this.resolvePatten(pattenList);
         }
-
         pattenList.forEach((patten) => {
             if (xUtil.typeof(patten) === "regexp") {
                 matched = matched || patten.test(filePath) || patten.test(fileName);
             }
         });
-
         return matched;
-    },
+    }
 
     /**
-     * get file list from a root path
+     * Get file list from a root path with configure
      * @param {string} root - file root path
-     * @param {obj} setting [optional]
-     *     absolute: {boolean} return absolute path or path relative from root. [default is false]
-     *     recursive: {boolean} recursive to sub directory. [default is false]
-     *     find: {string|regexp|array} provide human patten or human patten list to define filename matcher. [default is "*"]
-     *     ignore: {string|regexp|array} provide human patten or human patten list to define which filename will be ignored. [default is none]
+     * @param {object} [setting] - optional
+     * @param {boolean} [setting.absolute] - return absolute path or path relative from root. [default is false]
+     * @param {boolean} [setting.recursive] - recursive to sub directory. [default is false]
+     * @param {(string|regexp|array)} [setting.find] - provide human patten or human patten list to define filename matcher. [default is "*"]
+     * @param {(string|regexp|array)} [setting.ignore] - provide human patten or human patten list to define which filename will be ignored. [default is none]
      */
-    getFileList: function (root, setting) {
+    getFileList(root, setting) {
         setting = setting || {};
-        let findPattenList = xFile.resolvePatten(setting.find || "*"),
-            ignorePattenList = xFile.resolvePatten(setting.ignore || ""),
+        let findPattenList = this.resolvePatten(setting.find || "*"),
+            ignorePattenList = this.resolvePatten(setting.ignore || ""),
             absolute = !!setting.absolute,
             recursive = !!setting.recursive,
             fileArray = [],
@@ -72,8 +73,8 @@ let xFile = {
                     var itemAbsolute = path.join(seekPath, item),
                         itemRelative = itemAbsolute.replace(rootPath, ""),
                         isDir = fs.statSync(itemAbsolute).isDirectory();
-                    if (!xFile.matcher(itemRelative, ignorePattenList, isDir)) {
-                        if (!isDir && xFile.matcher(itemRelative, findPattenList, isDir)) {
+                    if (!this.matcher(itemRelative, ignorePattenList, isDir)) {
+                        if (!isDir && this.matcher(itemRelative, findPattenList, isDir)) {
                             fileArray.push(absolute ? itemAbsolute : itemRelative);
                         } else if (isDir && recursive) {
                             recursivePath(itemAbsolute);
@@ -86,4 +87,4 @@ let xFile = {
     }
 };
 
-module.exports = xFile;
+module.exports = new xFile();
