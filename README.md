@@ -1,7 +1,7 @@
 
 ## xtool
 <a name="xtool"></a>
-File relative tools of xTool
+Yet another tool package for node.
 
 * [xtool](#xtool)
     * [.typeof(arg)](#xtool+typeof) ⇒ <code>string</code>

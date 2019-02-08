@@ -1,7 +1,7 @@
 {
   "name": "xtool.js",
-  "version": "1.0.3",
-  "description": "Some js tools made by xiaole.",
+  "version": "1.0.4",
+  "description": "Yet another tool package for node.",
   "main": "index.js",
   "repository": "https://github.com/Tairraos/xTool.js.git",
   "author": "xiaol.tao@gmail.com",
