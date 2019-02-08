@@ -33,7 +33,7 @@ Test item, does this item match at least one patten of list.
 | --- | --- | --- |
 | item | <code>string</code> | item of directory list, file or sub-directory |
 | pattenList | <code>array</code> | patten array |
-| [isDir] | <code>boolean</code> | optional |
+| [isDir] | <code>boolean</code> | is this item is a directory |
 
 <a name="xFile+getFileList"></a>
 

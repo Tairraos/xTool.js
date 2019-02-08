@@ -32,7 +32,7 @@ class xFile {
      * Test item, does this item match at least one patten of list.
      * @param {string} item - item of directory list, file or sub-directory
      * @param {array} pattenList - patten array
-     * @param {boolean} [isDir] - optional
+     * @param {boolean} [isDir] - is this item is a directory
      * @return {boolean}
      */
     matcher(item, pattenList, isDir) {
