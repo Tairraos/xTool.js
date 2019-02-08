@@ -8,5 +8,9 @@
   "license": "MIT",
   "devDependencies": {
     "jest": "^24.0.0"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": ["json", "html", "text", "text-summary"]
   }
 }

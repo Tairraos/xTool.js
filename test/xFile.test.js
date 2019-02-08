@@ -3,8 +3,8 @@ const xFile = require('../src/xFile');
 describe('test xFile.resolvePatten', () => {
     it("test illegal params will be a empty matched regexp", () => {
         expect(xFile._resolvePatten([])).toEqual([]);
-        expect(xFile._resolvePatten()).toEqual([/^$/]);
-        expect(xFile._resolvePatten({})).toEqual([/^$/]);
+        expect(xFile._resolvePatten()).toEqual([/$.^/]);
+        expect(xFile._resolvePatten({})).toEqual([/$.^/]);
     });
 
     it("test number", () => {
@@ -46,6 +46,11 @@ describe('test xFile.resolvePatten', () => {
 });
 
 describe('test xFile.pattenMatcher', () => {
+    it("test unresolved match", () => {
+        expect(xFile._pattenMatcher("testFileName.txt", "*.*")).toBeTruthy();
+        expect(xFile._pattenMatcher("testFileName.txt", ["*.*"])).toBeFalsy();
+    });
+
     it("test file match", () => {
         expect(xFile._pattenMatcher("testFileName.txt", xFile._resolvePatten("*.*"))).toBeTruthy();
         expect(xFile._pattenMatcher("testFileName.txt", xFile._resolvePatten("*.txt"))).toBeTruthy();
@@ -61,5 +66,34 @@ describe('test xFile.pattenMatcher', () => {
         expect(xFile._pattenMatcher("testFileName.", xFile._resolvePatten("*.*"))).toBeFalsy();
     });
 
-    it("test path match", () => {});
+    it("test path match", () => {
+        expect(xFile._pattenMatcher("/test/path/to/file.txt", xFile._resolvePatten("to/"))).toBeTruthy();
+        expect(xFile._pattenMatcher("/test/path/to/file.txt", xFile._resolvePatten("/to/"))).toBeTruthy();
+        expect(xFile._pattenMatcher("/test/path/to/file.txt", xFile._resolvePatten("to"))).toBeFalsy();
+        expect(xFile._pattenMatcher("/test/path/to/file.txt", xFile._resolvePatten(["to", "to/"]))).toBeTruthy();
+        expect(xFile._pattenMatcher("/test/path/to/file.txt", xFile._resolvePatten("path/to/"))).toBeTruthy();
+        expect(xFile._pattenMatcher("/test/path/to/file.txt", xFile._resolvePatten("to/file.txt"))).toBeTruthy();
+    });
+});
+
+describe('test xFile.readDir', () => {
+    it("test unresolved match", () => {
+        expect(xFile.readDir(".")).toContain("README.md");
+        expect(xFile.readDir(".", {find: "*.md"})).toContain("README.md");
+        expect(xFile.readDir(".", {find: "*.js"})).not.toContain("README.md");
+        expect(xFile.readDir(".", {find: "*.json"})).toContain("package.json");
+        expect(xFile.readDir(".", {find: "*.json", ignore: ["node_modules/", "package.json"]})).not.toContain("package.json");
+        expect(xFile.readDir(".", {find: "*.js", ignore: "node_modules/", recursive: true})).toContain("src/xFile.js");
+        expect(xFile.readDir(".", {find: "*.js", ignore: "node_modules/", absolute: true})).not.toContain("src/xFile.js");
+        expect(xFile.readDir("/etc", {find: "hosts", absolute: true})).toContain("/etc/hosts");
+    });
+});
+
+describe('test xFile.readFile & xFile.saveFile', () => {
+    it("test unresolved match", () => {
+        expect(xFile.saveFile("_tmp.txt", "test content", "utf-8"));
+        expect(xFile.readFile("_tmp.txt", "utf-8")).toBe("test content");
+        expect(xFile.saveFile("_tmp.txt", "test content\nantoher line"));
+        expect(xFile.readFile("_tmp.txt")).toBe("test content\nantoher line");
+    });
 });

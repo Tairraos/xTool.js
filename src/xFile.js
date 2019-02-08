@@ -19,11 +19,11 @@ class xFile {
                 case "string":
                     let isFile = !item.match(/\//),
                         basePatten = (isFile ? "^" : "") + item.replace(/\./g, "\\.").replace(/\*/g, ".+").replace(/\?/g, ".") + (isFile ? "$" : "");
-                    return new RegExp(basePatten);
+                    return item !== "" ? new RegExp(basePatten) : /$.^/;
                 case "regexp":
                     return item;
                 default:
-                    return /^$/;
+                    return /$.^/;
             }
         });
     }
@@ -86,6 +86,31 @@ class xFile {
         recursivePath(rootPath);
         return [...new Set(fileArray)];
     }
+
+    /**
+     * Read file content
+     * @param {string} file - path to file
+     * @param {string} [encoding] - encoding
+     * @return {string}
+     */
+    readFile(file, encoding) {
+        return fs.readFileSync(file, {
+            encoding: encoding || "utf8"
+        });
+    }
+
+    /**
+     * Save content to file
+     * @param {string} file - path to file
+     * @param {string} content - file content
+     * @param {string} [encoding] - encoding
+     */
+    saveFile(file, content, encoding) {
+        fs.writeFileSync(file, content, {
+            encoding: encoding || "utf8"
+        });
+    }
+
 };
 
 module.exports = new xFile;
