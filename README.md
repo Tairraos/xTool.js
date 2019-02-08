@@ -1,46 +1,30 @@
-<a name="xFile"></a>
 
-## xFile
+## xtool
+<a name="xtool"></a>
 File relative tools of xTool
 
-**Kind**: global class  
+* [xtool](#xtool)
+    * [.typeof(arg)](#xtool+typeof) ⇒ <code>string</code>
+    * [.readDir(root, [setting])](#xtool+readDir) ⇒ <code>array</code>
+    * [.flatArray(item)](#xtool+flatArray) ⇒ <code>array</code>
 
-* [xFile](#xFile)
-    * [.resolvePatten(patten)](#xFile+resolvePatten) ⇒ <code>array</code>
-    * [.matcher(item, pattenList, [isDir])](#xFile+matcher) ⇒ <code>boolean</code>
-    * [.getFileList(root, [setting])](#xFile+getFileList) ⇒ <code>array</code>
 
-<a name="xFile+resolvePatten"></a>
+<a name="xtool+typeof"></a>
 
-### xFile.resolvePatten(patten) ⇒ <code>array</code>
-Resolve patten, transfer wildcard patten to regexp format
+### xtool.typeof(arg) ⇒ <code>string</code>
+return the truly type of arg
 
-**Kind**: instance method of [<code>xFile</code>](#xFile)  
-**Returns**: <code>array</code> - will return an array of patten  
-
-| Param | Type |
-| --- | --- |
-| patten | <code>string</code> \| <code>regexp</code> \| <code>array</code> | 
-
-<a name="xFile+matcher"></a>
-
-### xFile.matcher(item, pattenList, [isDir]) ⇒ <code>boolean</code>
-Test item, does this item match at least one patten of list.
-
-**Kind**: instance method of [<code>xFile</code>](#xFile)  
+**Returns**: <code>string</code> - type of arg  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| item | <code>string</code> | item of directory list, file or sub-directory |
-| pattenList | <code>array</code> | patten array |
-| [isDir] | <code>boolean</code> | is this item is a directory |
+| arg | <code>\*</code> | type arg |
 
-<a name="xFile+getFileList"></a>
+<a name="xtool+readDir"></a>
 
-### xFile.getFileList(root, [setting]) ⇒ <code>array</code>
+### xtool.readDir(root, [setting]) ⇒ <code>array</code>
 Get file list from a root path with configure
 
-**Kind**: instance method of [<code>xFile</code>](#xFile)  
 **Returns**: <code>array</code> - list of file with absolute/relative path  
 
 | Param | Type | Description |
@@ -52,36 +36,14 @@ Get file list from a root path with configure
 | [setting.find] | <code>string</code> \| <code>regexp</code> \| <code>array</code> | provide human patten or human patten list to define filename matcher. [default is "*"] |
 | [setting.ignore] | <code>string</code> \| <code>regexp</code> \| <code>array</code> | provide human patten or human patten list to define which filename will be ignored. [default is none] |
 
-<a name="xUtil"></a>
+<a name="xtool+flatArray"></a>
 
-## xUtil
-Utility of xTool
-
-**Kind**: global class  
-
-* [xUtil](#xUtil)
-    * [.typeof(arg)](#xUtil+typeof)
-    * [.flatArray(item)](#xUtil+flatArray)
-
-<a name="xUtil+typeof"></a>
-
-### xUtil.typeof(arg)
-return the truly type of arg
-
-**Kind**: instance method of [<code>xUtil</code>](#xUtil)  
-
-| Param | Type |
-| --- | --- |
-| arg | <code>\*</code> | 
-
-<a name="xUtil+flatArray"></a>
-
-### xUtil.flatArray(item)
+### xtool.flatArray(arg) ⇒ <code>array</code>
 recursive embeded array to a flat array, and will remove duplicated value
 
-**Kind**: instance method of [<code>xUtil</code>](#xUtil)  
+**Returns**: <code>array</code> - return a one dimension array  
 
-| Param | Type |
-| --- | --- |
-| item | <code>array</code> \| <code>\*</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| arg | <code>array</code> \| <code>\*</code> | dimensions array, other type of arg will return a array warped arg |
 

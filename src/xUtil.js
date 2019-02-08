@@ -4,7 +4,8 @@
 class xUtil {
     /**
      * return the truly type of arg
-     * @param {*} arg 
+     * @param {*} arg - any type arg
+     * @return {string} type of arg
      */
     typeof (arg) {
         return Object.prototype.toString.call(arg).slice(8, -1).toLowerCase();
@@ -12,7 +13,8 @@ class xUtil {
 
     /**
      * recursive embeded array to a flat array, and will remove duplicated value
-     * @param {(array|*)} item 
+     * @param {(array|*)} arg - multi dimensions array, other type of arg will return a array warped arg
+     * @return {array} return a one dimension array 
      */
     flatArray(arg) {
         let pattenArray = [],

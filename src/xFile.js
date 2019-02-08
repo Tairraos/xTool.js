@@ -11,7 +11,7 @@ class xFile {
      * @param {(string|regexp|array)} patten
      * @return {array} will return an array of patten
      */
-    resolvePatten(patten) {
+    _resolvePatten(patten) {
         return xUtil.flatArray(patten).map((item) => {
             switch (xUtil.typeof(item)) {
                 case "number":
@@ -35,12 +35,12 @@ class xFile {
      * @param {boolean} [isDir] - is this item is a directory
      * @return {boolean}
      */
-    matcher(item, pattenList, isDir) {
+    _pattenMatcher(item, pattenList, isDir) {
         let matched = false,
             fileName = isDir ? "" : path.basename(item),
             filePath = isDir ? item + "/" : item;
         if (xUtil.typeof(pattenList) !== "array") {
-            pattenList = this.resolvePatten(pattenList);
+            pattenList = this.private resolvePatten(pattenList);
         }
         pattenList.forEach((patten) => {
             if (xUtil.typeof(patten) === "regexp") {
@@ -60,10 +60,10 @@ class xFile {
      * @param {(string|regexp|array)} [setting.ignore] - provide human patten or human patten list to define which filename will be ignored. [default is none]
      * @return {array} list of file with absolute/relative path
      */
-    getFileList(root, setting) {
+    readDir(root, setting) {
         setting = setting || {};
-        let findPattenList = this.resolvePatten(setting.find || "*"),
-            ignorePattenList = this.resolvePatten(setting.ignore || ""),
+        let findPattenList = this.private resolvePatten(setting.find || "*"),
+            ignorePattenList = this.private resolvePatten(setting.ignore || ""),
             absolute = !!setting.absolute,
             recursive = !!setting.recursive,
             fileArray = [],
@@ -74,8 +74,8 @@ class xFile {
                     var itemAbsolute = path.join(seekPath, item),
                         itemRelative = itemAbsolute.replace(rootPath, ""),
                         isDir = fs.statSync(itemAbsolute).isDirectory();
-                    if (!this.matcher(itemRelative, ignorePattenList, isDir)) {
-                        if (!isDir && this.matcher(itemRelative, findPattenList, isDir)) {
+                    if (!this._pattenMatcher(itemRelative, ignorePattenList, isDir)) {
+                        if (!isDir && this._pattenMatcher(itemRelative, findPattenList, isDir)) {
                             fileArray.push(absolute ? itemAbsolute : itemRelative);
                         } else if (isDir && recursive) {
                             recursivePath(itemAbsolute);

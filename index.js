@@ -1,4 +1,7 @@
+let xUtil = require('./src/xUtil'),
+    xFile = require('./src/xFile');
 module.exports = {
-    xUtil: require('./src/xUtil'),
-    xFile: require('./src/xFile')
+    typeof: xUtil.typeof,
+    readDir: xFile.readDir,
+    flatArray: xUtil.flatArray
 };
