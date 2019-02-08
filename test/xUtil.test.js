@@ -1,4 +1,4 @@
-const xUtil = require('../xUtil');
+const xUtil = require('../src/xUtil');
 
 describe('test xUtil.typeof', () => {
     it("test number", () => {

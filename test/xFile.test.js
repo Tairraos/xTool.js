@@ -1,4 +1,4 @@
-const xFile = require('../xFile');
+const xFile = require('../src/xFile');
 
 describe('test xFile.resolvePatten', () => {
     it("test illegal params will be a empty matched regexp", () => {

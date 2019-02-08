@@ -14,11 +14,9 @@ let xFile = {
                 case "number":
                     item = item.toString();
                 case "string":
-                    if (item.match(/\//)) {
-                        return new RegExp(item.replace(/\./g, "\\.").replace(/\*/g, ".+").replace(/\?/g, "."));
-                    } else {
-                        return new RegExp("^" + item.replace(/\./g, "\\.").replace(/\*/g, ".+").replace(/\?/g, ".") + "$");
-                    }
+                    let isFile = !item.match(/\//),
+                        basePatten = (isFile ? "^" : "") + item.replace(/\./g, "\\.").replace(/\*/g, ".+").replace(/\?/g, ".") + (isFile ? "$" : "");
+                    return new RegExp(basePatten);
                 case "regexp":
                     return item;
                 default:
@@ -69,22 +67,20 @@ let xFile = {
             fileArray = [],
             rootPath = (path.isAbsolute(root) ? root : path.join(process.cwd(), root)) + path.sep,
             recursivePath = (seekPath) => {
-                rootList = fs.readdirSync(seekPath),
-                    rootList.forEach((item) => {
-                        var itemAbsolute = path.join(seekPath, item),
-                            itemRelative = itemAbsolute.replace(rootPath, ""),
-                            itemStat = fs.statSync(itemAbsolute),
-                            isDir = itemStat.isDirectory();
-                        if (!xFile.matcher(itemRelative, ignorePattenList, isDir)) {
-                            if (itemStat.isFile() && xFile.matcher(itemRelative, findPattenList, isDir)) {
-                                fileArray.push(absolute ? itemAbsolute : itemRelative);
-                            } else if (isDir && recursive) {
-                                recursivePath(itemAbsolute);
-                            }
+                let seekList = fs.readdirSync(seekPath);
+                seekList.forEach((item) => {
+                    var itemAbsolute = path.join(seekPath, item),
+                        itemRelative = itemAbsolute.replace(rootPath, ""),
+                        isDir = fs.statSync(itemAbsolute).isDirectory();
+                    if (!xFile.matcher(itemRelative, ignorePattenList, isDir)) {
+                        if (!isDir && xFile.matcher(itemRelative, findPattenList, isDir)) {
+                            fileArray.push(absolute ? itemAbsolute : itemRelative);
+                        } else if (isDir && recursive) {
+                            recursivePath(itemAbsolute);
                         }
-                    });
+                    }
+                });
             };
-
         recursivePath(rootPath);
         return [...new Set(fileArray)];
     }
