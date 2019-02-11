@@ -46,10 +46,18 @@ describe('test xUtil.typeof', () => {
     it("test function", () => {
         expect(xUtil.typeof(function () {})).toBe("function");
     });
-    
+
     it("test class", () => {
         expect(xUtil.typeof(new Date)).toBe("date");
     });
+});
+
+describe('test xUtil.typeof', () => {
+    it("test number", () => {
+        expect(xUtil.is(1, "number")).toBeTruthy();
+        expect(xUtil.is({}, "number")).toBeFalsy();
+    });
+    //Just test one type is enough, other case is by xUtil.typeof
 });
 
 describe('test xUtil.flatArray', () => {

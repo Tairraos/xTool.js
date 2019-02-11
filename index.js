@@ -2,6 +2,7 @@ let xUtil = require('./src/xUtil'),
     xFile = require('./src/xFile');
 module.exports = {
     typeof: xUtil.typeof,
+    is: xUtil.is,
     flatArray: xUtil.flatArray,
     readDir: xFile.readDir,
     readFile: xFile.readFile,

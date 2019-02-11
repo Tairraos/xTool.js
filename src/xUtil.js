@@ -12,21 +12,31 @@ class xUtil {
     }
 
     /**
+     * compare the value type with expect type
+     * @param {*} value - value will be test
+     * @param {*} type - expect type
+     * @return {boolean}
+     */
+    is(value, type) {
+        return this.typeof(value) === type.toString().toLowerCase();
+    }
+
+    /**
      * recursive embeded array to a flat array, and will remove duplicated value
      * @param {(array|*)} arg - multi dimensions array, other type of arg will return a array warped arg
      * @return {array} return a one dimension array 
      */
     flatArray(arg) {
         let pattenArray = [],
-            recursiveArray = (param) => {
+            recursive = (param) => {
                 if (this.typeof(param) === "array") {
                     param.forEach((subParam) =>
-                        (this.typeof(subParam) === "array") ? recursiveArray(subParam) : pattenArray.push(subParam));
+                        (this.is(subParam, "array")) ? recursive(subParam) : pattenArray.push(subParam));
                 } else {
                     pattenArray.push(param);
                 }
             };
-        recursiveArray(arg);
+        recursive(arg);
         return [...new Set(pattenArray)];
     }
 };

@@ -8,6 +8,7 @@ let fs = require('fs'),
 class xFile {
     /**
      * Resolve patten, transfer wildcard patten to regexp format
+     * @private
      * @param {(string|regexp|array)} patten
      * @return {array} will return an array of patten
      */
@@ -30,6 +31,7 @@ class xFile {
 
     /**
      * Test item, does this item match at least one patten of list.
+     * @private
      * @param {string} item - item of directory list, file or sub-directory
      * @param {array} pattenList - patten array
      * @param {boolean} [isDir] - is this item is a directory
@@ -39,11 +41,11 @@ class xFile {
         let matched = false,
             fileName = isDir ? "" : path.basename(item),
             filePath = isDir ? item + "/" : item;
-        if (xUtil.typeof(pattenList) !== "array") {
+        if (!xUtil.is(pattenList, "array")) {
             pattenList = this._resolvePatten(pattenList);
         }
         pattenList.forEach((patten) => {
-            if (xUtil.typeof(patten) === "regexp") {
+            if (xUtil.is(patten, "regexp")) {
                 matched = matched || patten.test(filePath) || patten.test(fileName);
             }
         });
@@ -64,11 +66,11 @@ class xFile {
         setting = setting || {};
         let findPattenList = this._resolvePatten(setting.find || "*"),
             ignorePattenList = this._resolvePatten(setting.ignore || ""),
-            absolute = !!setting.absolute,
-            recursive = !!setting.recursive,
+            isAbsolute = !!setting.absolute,
+            isRecursive = !!setting.recursive,
             fileArray = [],
             rootPath = (path.isAbsolute(root) ? root : path.join(process.cwd(), root)) + path.sep,
-            recursivePath = (seekPath) => {
+            recursive = (seekPath) => {
                 let seekList = fs.readdirSync(seekPath);
                 seekList.forEach((item) => {
                     var itemAbsolute = path.join(seekPath, item),
@@ -76,14 +78,14 @@ class xFile {
                         isDir = fs.statSync(itemAbsolute).isDirectory();
                     if (!this._pattenMatcher(itemRelative, ignorePattenList, isDir)) {
                         if (!isDir && this._pattenMatcher(itemRelative, findPattenList, isDir)) {
-                            fileArray.push(absolute ? itemAbsolute : itemRelative);
-                        } else if (isDir && recursive) {
-                            recursivePath(itemAbsolute);
+                            fileArray.push(isAbsolute ? itemAbsolute : itemRelative);
+                        } else if (isDir && isRecursive) {
+                            recursive(itemAbsolute);
                         }
                     }
                 });
             };
-        recursivePath(rootPath);
+        recursive(rootPath);
         return [...new Set(fileArray)];
     }
 
