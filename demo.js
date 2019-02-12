@@ -3,13 +3,9 @@ let fs = require('fs'),
     x = require('./index');
 
 
-console.log(x.readDir("./src", {
-    find: "*.js",
-    recursive: true
+console.log(x.readDir(".", {
+    find: "*.md"
 }));
-// console.log(x.readDir(".", {
-//     find: ["*.test.js", "*.json"],
-//     ignore: ["node_modules/", ""],
-//     recursive: true,
-//     absolute: false,
-// }));
+
+x.replaceFile("README.md", /xFile/g, "xtool");
+x.replaceFile("README.md", /xUtil/g, "xtool");

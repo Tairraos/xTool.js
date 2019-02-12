@@ -112,6 +112,32 @@ class xFile {
             encoding: encoding || "utf8"
         });
     }
+    /**
+     * Alias of fs.existsSync
+     * @param {string} file - path to file
+     */
+    existFile(file) {
+        return fs.existsSync(file);
+    }
+
+    /**
+     * Alias of fs.unlinkSync
+     * @param {string} file - path to file
+     * @return {boolean}
+     */
+    removeFile(file) {
+        return fs.unlinkSync(file);
+    }
+
+    /**
+     * replace file content with patten & replacement
+     * @param {string} file - path to file
+     * @param {*} patten 
+     * @param {*} replacement 
+     */
+    replaceFile(file, patten, replacement) {
+        this.saveFile(file, this.readFile(file).replace(patten, replacement));
+    }
 
 };
 

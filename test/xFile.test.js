@@ -89,11 +89,18 @@ describe('test xFile.readDir', () => {
     });
 });
 
-describe('test xFile.readFile & xFile.saveFile', () => {
+describe('test xFile.readFile & saveFile & existFile & removeFile & replaceFile', () => {
     it("test unresolved match", () => {
         expect(xFile.saveFile("_tmp.txt", "test content", "utf-8"));
         expect(xFile.readFile("_tmp.txt", "utf-8")).toBe("test content");
         expect(xFile.saveFile("_tmp.txt", "test content\nantoher line"));
         expect(xFile.readFile("_tmp.txt")).toBe("test content\nantoher line");
+        expect(xFile.replaceFile("_tmp.txt", "content", "line")).toBeUndefined();
+        expect(xFile.readFile("_tmp.txt")).toBe("test line\nantoher line");
+        expect(xFile.replaceFile("_tmp.txt", /line/g, "LINE")).toBeUndefined();
+        expect(xFile.readFile("_tmp.txt")).toBe("test LINE\nantoher LINE");
+        expect(xFile.existFile("_tmp.txt")).toBeTruthy();
+        expect(xFile.removeFile("_tmp.txt")).toBeUndefined();
+        expect(xFile.existFile("_tmp.txt")).toBeFalsy();
     });
 });
