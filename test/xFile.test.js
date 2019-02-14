@@ -134,9 +134,7 @@ describe('test scanFile && scanDirFile', () => {
         let tmp1 = [];
         xFile.scanFile("_tmp.1.txt", (line, index) => tmp1.push(line));
         let tmp2 = [],
-            fileList = xFile.readDir(".", {
-                find: "_tmp.*.txt"
-            });
+            fileList = xFile.readDir(".", "_tmp.*.txt");
         xFile.scanDirFile(fileList, (line, index, file) => tmp2.push(line));
         expect(tmp2).toEqual(["line1 test", "line2 test", "line3 test", "line4 test", "line5 test", "line6 test", "line7 test", "line8 test", "line9 test"]);
         expect(xFile.removeFile("_tmp.1.txt")).toBeUndefined();

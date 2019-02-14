@@ -55,7 +55,7 @@ class xFile {
     /**
      * Get file list from a root path with configure
      * @param {string} root - file root path
-     * @param {object} [setting] - optional
+     * @param {(object|string)} [setting] - optional, if only one find patten, can be simplify as a string
      * @param {boolean} [setting.absolute] - return absolute path or path relative from root. [default is false]
      * @param {boolean} [setting.recursive] - recursive to sub directory. [default is false]
      * @param {(string|regexp|array)} [setting.find] - provide human patten or human patten list to define filename matcher. [default is "*"]
@@ -64,6 +64,9 @@ class xFile {
      */
     readDir(root, setting) {
         setting = setting || {};
+        if (xUtil.is(setting, "string")) setting = {
+            find: setting
+        };
         let findPattenList = this._resolvePatten(setting.find || "*"),
             ignorePattenList = this._resolvePatten(setting.ignore || ""),
             isAbsolute = !!setting.absolute,
@@ -102,6 +105,15 @@ class xFile {
     }
 
     /**
+     * Alias of fs.existsSync
+     * @param {string} file - path to file
+     * @return {boolean}
+     */
+    existFile(file) {
+        return fs.existsSync(file);
+    }
+
+    /**
      * Save content to file
      * @param {string} file - path to file
      * @param {string} content - file content
@@ -112,18 +124,10 @@ class xFile {
             encoding: encoding || "utf8"
         });
     }
-    /**
-     * Alias of fs.existsSync
-     * @param {string} file - path to file
-     */
-    existFile(file) {
-        return fs.existsSync(file);
-    }
 
     /**
      * Alias of fs.unlinkSync
      * @param {string} file - path to file
-     * @return {boolean}
      */
     removeFile(file) {
         return fs.unlinkSync(file);
