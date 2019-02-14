@@ -12,5 +12,7 @@ module.exports = {
     saveFile: xFile.saveFile,
     existFile: xFile.existFile,
     removeFile: xFile.removeFile,
-    replaceFile: xFile.replaceFile
+    replaceFile: xFile.replaceFile,
+    scanFile: xFile.scanFile,
+    scanDirFile: xFile.scanDirFile
 };
