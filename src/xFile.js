@@ -132,11 +132,30 @@ class xFile {
     /**
      * replace file content with patten & replacement
      * @param {string} file - path to file
-     * @param {*} patten 
-     * @param {*} replacement 
+     * @param {(string|regexp)} patten 
+     * @param {string} replacement - if patten is regexp, the replacement allow to use captured value like $1, $2
      */
     replaceFile(file, patten, replacement) {
         this.saveFile(file, this.readFile(file).replace(patten, replacement));
+    }
+
+    /**
+     * 
+     * @param {string} file - filename 
+     * @param {function} callback - call back func(lineContent, lineNumber)
+     */
+    scanFile(file, callback) {
+        this.readFile(file).replace("\r").split("\n").forEach((line, i) => callback(line, i));
+    }
+
+    /**
+     * 
+     * @param {array} list - the file list from readDir() 
+     * @param {function} callback - call back func(lineContent, lineNumber, fileName)
+     */
+    scanDirFile(list, callback) {
+        list.forEach((file) => this.readFile(file).replace("\r").split("\n").forEach((line, i) => callback(line, i, file)));
+
     }
 
 };

@@ -1,7 +1,7 @@
+<a name="xtool"></a>
 
 ## xtool
-<a name="xtool"></a>
-Yet another tool package for node.
+Yet another tool package for node
 
 * [xtool](#xtool)
     * [.typeof(arg)](#xtool+typeof) ⇒ <code>string</code>
@@ -13,6 +13,8 @@ Yet another tool package for node.
     * [.existFile(file)](#xtool+existFile)
     * [.removeFile(file)](#xtool+removeFile) ⇒ <code>boolean</code>
     * [.replaceFile(file, patten, replacement)](#xtool+replaceFile)
+    * [.scanFile(file, callback)](#xtool+scanFile)
+    * [.scanDirFile(list, callback)](#xtool+scanDirFile)
 
 <a name="xtool+typeof"></a>
 
@@ -124,6 +126,26 @@ replace file content with patten & replacement
 | Param | Type | Description |
 | --- | --- | --- |
 | file | <code>string</code> | path to file |
-| patten | <code>\*</code> |  |
-| replacement | <code>\*</code> |  |
+| patten | <code>string</code> \| <code>regexp</code> |  |
+| replacement | <code>string</code> | if patten is regexp, the replacement allow to use captured value like $1, $2 |
+
+<a name="xtool+scanFile"></a>
+
+### xtool.scanFile(file, callback)
+**Kind**: instance method of [<code>xtool</code>](#xtool)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| file | <code>string</code> | filename |
+| callback | <code>function</code> | call back func(lineContent, lineNumber) |
+
+<a name="xtool+scanDirFile"></a>
+
+### xtool.scanDirFile(list, callback)
+**Kind**: instance method of [<code>xtool</code>](#xtool)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| list | <code>array</code> | the file list from readDir() |
+| callback | <code>function</code> | call back func(lineContent, lineNumber, fileName) |
 

@@ -77,20 +77,40 @@ describe('test xFile.pattenMatcher', () => {
 });
 
 describe('test xFile.readDir', () => {
-    it("test unresolved match", () => {
+    it("test readDir", () => {
         expect(xFile.readDir(".")).toContain("README.md");
-        expect(xFile.readDir(".", {find: "*.md"})).toContain("README.md");
-        expect(xFile.readDir(".", {find: "*.js"})).not.toContain("README.md");
-        expect(xFile.readDir(".", {find: "*.json"})).toContain("package.json");
-        expect(xFile.readDir(".", {find: "*.json", ignore: ["node_modules/", "package.json"]})).not.toContain("package.json");
-        expect(xFile.readDir(".", {find: "*.js", ignore: "node_modules/", recursive: true})).toContain("src/xFile.js");
-        expect(xFile.readDir(".", {find: "*.js", ignore: "node_modules/", absolute: true})).not.toContain("src/xFile.js");
-        expect(xFile.readDir("/etc", {find: "hosts", absolute: true})).toContain("/etc/hosts");
+        expect(xFile.readDir(".", {
+            find: "*.md"
+        })).toContain("README.md");
+        expect(xFile.readDir(".", {
+            find: "*.js"
+        })).not.toContain("README.md");
+        expect(xFile.readDir(".", {
+            find: "*.json"
+        })).toContain("package.json");
+        expect(xFile.readDir(".", {
+            find: "*.json",
+            ignore: ["node_modules/", "package.json"]
+        })).not.toContain("package.json");
+        expect(xFile.readDir(".", {
+            find: "*.js",
+            ignore: "node_modules/",
+            recursive: true
+        })).toContain("src/xFile.js");
+        expect(xFile.readDir(".", {
+            find: "*.js",
+            ignore: "node_modules/",
+            absolute: true
+        })).not.toContain("src/xFile.js");
+        expect(xFile.readDir("/etc", {
+            find: "hosts",
+            absolute: true
+        })).toContain("/etc/hosts");
     });
 });
 
 describe('test xFile.readFile & saveFile & existFile & removeFile & replaceFile', () => {
-    it("test unresolved match", () => {
+    it("test file function", () => {
         expect(xFile.saveFile("_tmp.txt", "test content", "utf-8"));
         expect(xFile.readFile("_tmp.txt", "utf-8")).toBe("test content");
         expect(xFile.saveFile("_tmp.txt", "test content\nantoher line"));
@@ -102,5 +122,25 @@ describe('test xFile.readFile & saveFile & existFile & removeFile & replaceFile'
         expect(xFile.existFile("_tmp.txt")).toBeTruthy();
         expect(xFile.removeFile("_tmp.txt")).toBeUndefined();
         expect(xFile.existFile("_tmp.txt")).toBeFalsy();
+    });
+});
+
+
+describe('test scanFile && scanDirFile', () => {
+    it("test scan function", () => {
+        expect(xFile.saveFile("_tmp.1.txt", "line1 test\nline2 test\nline3 test", "utf-8"));
+        expect(xFile.saveFile("_tmp.2.txt", "line4 test\nline5 test\nline6 test", "utf-8"));
+        expect(xFile.saveFile("_tmp.3.txt", "line7 test\nline8 test\nline9 test", "utf-8"));
+        let tmp1 = [];
+        xFile.scanFile("_tmp.1.txt", (line, index) => tmp1.push(line));
+        let tmp2 = [],
+            fileList = xFile.readDir(".", {
+                find: "_tmp.*.txt"
+            });
+        xFile.scanDirFile(fileList, (line, index, file) => tmp2.push(line));
+        expect(tmp2).toEqual(["line1 test", "line2 test", "line3 test", "line4 test", "line5 test", "line6 test", "line7 test", "line8 test", "line9 test"]);
+        expect(xFile.removeFile("_tmp.1.txt")).toBeUndefined();
+        expect(xFile.removeFile("_tmp.2.txt")).toBeUndefined();
+        expect(xFile.removeFile("_tmp.3.txt")).toBeUndefined();
     });
 });
