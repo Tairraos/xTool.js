@@ -13,7 +13,7 @@ class xFile {
      * @return {array} will return an array of patten
      */
     _resolvePatten(patten) {
-        return xUtil.flatArray(patten).map((item) => {
+        return xUtil.distinctArray(xUtil.flattenArray(patten)).map((item) => {
             switch (xUtil.typeof(item)) {
                 case "number":
                     item = item.toString();
@@ -85,27 +85,27 @@ class xFile {
                         } else if (isDir && isRecursive) {
                             recursive(itemAbsolute);
                         }
-                    }
+                    }``
                 });
             };
         recursive(rootPath);
-        return [...new Set(fileArray)];
+        return xUtil.distinctArray(fileArray);
     }
 
     /**
      * Read file content
      * @param {string} file - path to file
      * @param {string} [encoding] - encoding
-     * @return {string}
+     * @return {string} if file not exist, will return empty string
      */
     readFile(file, encoding) {
-        return fs.readFileSync(file, {
+        return this.existFile(file) ? fs.readFileSync(file, {
             encoding: encoding || "utf8"
-        });
+        }) : "";
     }
 
     /**
-     * Alias of fs.existsSync
+     * Test file exist or not
      * @param {string} file - path to file
      * @return {boolean}
      */
@@ -114,52 +114,73 @@ class xFile {
     }
 
     /**
+     * Test dir exist or not
+     * @param {string} dir - path
+     * @return {boolean}
+     */
+    existDir(dir) {
+        return fs.existsSync(dir);
+    }
+
+    /**
      * Save content to file
      * @param {string} file - path to file
-     * @param {string} content - file content
+     * @param {(string|array|object)} content - file content, array will be join with {crlf}, object will be str
      * @param {string} [encoding] - encoding
      */
     saveFile(file, content, encoding) {
-        fs.writeFileSync(file, content, {
-            encoding: encoding || "utf8"
-        });
+        if (xUtil.is(file, "string")) {
+            content = xUtil.is(content, "array") ? xUtil.flattenArray(content).join("\n") :
+                xUtil.is(content, "object") ? JSON.stringify(content) : content.toString();
+            fs.writeFileSync(file, content, {
+                encoding: encoding || "utf8"
+            });
+        }
     }
 
     /**
      * Alias of fs.unlinkSync
      * @param {string} file - path to file
+     * @return {boolean} if file not exist, return false
      */
     removeFile(file) {
-        return fs.unlinkSync(file);
+        return this.existFile(file) ? fs.unlinkSync(file) : false;
+    }
+
+    /**
+     * scan file by line, and do callback to content of each line
+     * @param {string} file - filename 
+     * @param {function} callback - call back func(lineContent, lineNumber)
+     */
+    scanFile(file, callback) {
+        if (xUtil.is(file, "string") && xUtil.is(callback, "function") && this.existFile(file)) {
+            this.readFile(file).replace("\r").split("\n").forEach((line, i) => callback(line, i));
+        }
+    }
+
+    /**
+     * scan all file in list by line, and do callback to content of each line
+     * @param {array} list - the file list from readDir() 
+     * @param {function} callback - call back func(lineContent, lineNumber, fileName)
+     */
+    scanListFile(list, callback) {
+        if (xUtil.is(list, "array") && xUtil.is(callback, "function")) {
+            list.forEach((file) => {
+                if (xUtil.is(file, "string") && this.existFile(file)) {
+                    this.readFile(file).replace("\r").split("\n").forEach((line, i) => callback(line, i, file));
+                }
+            });
+        }
     }
 
     /**
      * replace file content with patten & replacement
      * @param {string} file - path to file
-     * @param {(string|regexp)} patten 
-     * @param {string} replacement - if patten is regexp, the replacement allow to use captured value like $1, $2
+     * @param {(string|regexp|function)} patten|callback -  
+     * @param {string} [replacement] - if patten provided, replacement must provide, if patten is regexp, replacement can use the captured value by $1, $2, etc.
      */
     replaceFile(file, patten, replacement) {
         this.saveFile(file, this.readFile(file).replace(patten, replacement));
-    }
-
-    /**
-     * 
-     * @param {string} file - filename 
-     * @param {function} callback - call back func(lineContent, lineNumber)
-     */
-    scanFile(file, callback) {
-        this.readFile(file).replace("\r").split("\n").forEach((line, i) => callback(line, i));
-    }
-
-    /**
-     * 
-     * @param {array} list - the file list from readDir() 
-     * @param {function} callback - call back func(lineContent, lineNumber, fileName)
-     */
-    scanDirFile(list, callback) {
-        list.forEach((file) => this.readFile(file).replace("\r").split("\n").forEach((line, i) => callback(line, i, file)));
-
     }
 
 };

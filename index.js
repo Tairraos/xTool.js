@@ -14,5 +14,5 @@ module.exports = {
     removeFile: xFile.removeFile,
     replaceFile: xFile.replaceFile,
     scanFile: xFile.scanFile,
-    scanDirFile: xFile.scanDirFile
+    scanListFile: xFile.scanListFile
 };

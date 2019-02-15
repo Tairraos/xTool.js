@@ -3,5 +3,5 @@
 /.vscode
 /node_modules
 /coverage
-/_tmp.txt
-/_tmp.*.txt
+/local
+/_tmp.*

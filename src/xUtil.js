@@ -26,7 +26,7 @@ class xUtil {
      * @param {(array|*)} arg - multi dimensions array, other type of arg will return a array warped arg
      * @return {array} return a one dimension array 
      */
-    flatArray(arg) {
+    flattenArray(arg) {
         let pattenArray = [],
             recursive = (param) => {
                 if (this.typeof(param) === "array") {
@@ -37,7 +37,16 @@ class xUtil {
                 }
             };
         recursive(arg);
-        return [...new Set(pattenArray)];
+        return pattenArray;
+    }
+
+    /**
+     * remove duplicated value of array
+     * @param {array|*} arg - array to remopve duplicated value
+     * @return {array} return an array with every unquie value
+     */
+    distinctArray(arg) {
+        return this.is(arg, "array") ? [...new Set(arg)] : [arg];
     }
 };
 

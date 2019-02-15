@@ -113,15 +113,25 @@ describe('test xFile.readFile & saveFile & existFile & removeFile & replaceFile'
     it("test file function", () => {
         expect(xFile.saveFile("_tmp.txt", "test content", "utf-8"));
         expect(xFile.readFile("_tmp.txt", "utf-8")).toBe("test content");
-        expect(xFile.saveFile("_tmp.txt", "test content\nantoher line"));
+        expect(xFile.saveFile("_tmp.txt", ["test content", "antoher line"]));
         expect(xFile.readFile("_tmp.txt")).toBe("test content\nantoher line");
+        expect(xFile.saveFile("_tmp.txt", {
+            "test": "content",
+            "antoher": "line"
+        }));
+        expect(xFile.readFile("_tmp.txt")).toBe("{\"test\":\"content\",\"antoher\":\"line\"}");
         expect(xFile.replaceFile("_tmp.txt", "content", "line")).toBeUndefined();
-        expect(xFile.readFile("_tmp.txt")).toBe("test line\nantoher line");
+        expect(xFile.readFile("_tmp.txt")).toBe("{\"test\":\"line\",\"antoher\":\"line\"}");
         expect(xFile.replaceFile("_tmp.txt", /line/g, "LINE")).toBeUndefined();
-        expect(xFile.readFile("_tmp.txt")).toBe("test LINE\nantoher LINE");
+        expect(xFile.readFile("_tmp.txt")).toBe("{\"test\":\"LINE\",\"antoher\":\"LINE\"}");
         expect(xFile.existFile("_tmp.txt")).toBeTruthy();
         expect(xFile.removeFile("_tmp.txt")).toBeUndefined();
+        expect(xFile.removeFile("_tmp4.txt")).toBeFalsy();
         expect(xFile.existFile("_tmp.txt")).toBeFalsy();
+        expect(xFile.existDir("src")).toBeTruthy();
+        expect(xFile.existDir("src2")).toBeFalsy();
+        expect(xFile.readFile("_tmp2.txt")).toBe("");
+        expect(xFile.saveFile(["_tmp.txt"], "test content"));
     });
 });
 
@@ -133,9 +143,17 @@ describe('test scanFile && scanDirFile', () => {
         expect(xFile.saveFile("_tmp.3.txt", "line7 test\nline8 test\nline9 test", "utf-8"));
         let tmp1 = [];
         xFile.scanFile("_tmp.1.txt", (line, index) => tmp1.push(line));
+        expect(xFile.scanFile(["_tmp.1.txt"], (line, index) => tmp1.push(line))).toBeUndefined();
+        expect(xFile.scanFile("_tmp.1.txt", {})).toBeUndefined();
+        expect(xFile.scanFile("_tmp.5.txt", (line, index) => tmp1.push(line))).toBeUndefined();
+
         let tmp2 = [],
             fileList = xFile.readDir(".", "_tmp.*.txt");
-        xFile.scanDirFile(fileList, (line, index, file) => tmp2.push(line));
+        expect(xFile.scanListFile("_tmp.5.txt", (line, index, file) => tmp2.push(line))).toBeUndefined();
+        expect(xFile.scanListFile(fileList, {})).toBeUndefined();
+        expect(xFile.scanListFile(["_tmp.5.txt"], (line, index, file) => tmp2.push(line))).toBeUndefined();
+        expect(xFile.scanListFile([100], (line, index, file) => tmp2.push(line))).toBeUndefined();
+        xFile.scanListFile(fileList, (line, index, file) => tmp2.push(line));
         expect(tmp2).toEqual(["line1 test", "line2 test", "line3 test", "line4 test", "line5 test", "line6 test", "line7 test", "line8 test", "line9 test"]);
         expect(xFile.removeFile("_tmp.1.txt")).toBeUndefined();
         expect(xFile.removeFile("_tmp.2.txt")).toBeUndefined();

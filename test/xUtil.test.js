@@ -60,27 +60,34 @@ describe('test xUtil.typeof', () => {
     //Just test one type is enough, other case is by xUtil.typeof
 });
 
-describe('test xUtil.flatArray', () => {
+describe('test xUtil.flattenArray', () => {
     it("trans value to array", () => {
-        expect(xUtil.flatArray(1)).toEqual([1]);
+        expect(xUtil.flattenArray(1)).toEqual([1]);
     });
 
     it("keep simple array as flat array", () => {
-        expect(xUtil.flatArray([1])).toEqual([1]);
+        expect(xUtil.flattenArray([1])).toEqual([1]);
     });
 
     it("flat embeded array to flat array", () => {
-        expect(xUtil.flatArray([1, 2])).toEqual([1, 2]);
-        expect(xUtil.flatArray([1, [2, 3], 4])).toEqual([1, 2, 3, 4]);
-        expect(xUtil.flatArray([1, [2, [3, 4], 5], 6])).toEqual([1, 2, 3, 4, 5, 6]);
-        expect(xUtil.flatArray([1, [2, [3, [4, 5], 6], 7], 8])).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+        expect(xUtil.flattenArray([1, 2])).toEqual([1, 2]);
+        expect(xUtil.flattenArray([1, [2, 3], 4])).toEqual([1, 2, 3, 4]);
+        expect(xUtil.flattenArray([1, [2, [3, 4], 5], 6])).toEqual([1, 2, 3, 4, 5, 6]);
+        expect(xUtil.flattenArray([1, [2, [3, [4, 5], 6], 7], 8])).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
     });
 
     it("remove duplicated value from every level", () => {
-        expect(xUtil.flatArray([1, 1])).toEqual([1]);
-        expect(xUtil.flatArray([1, 2, 2])).toEqual([1, 2]);
-        expect(xUtil.flatArray([1, [2, 3], 3, 4])).toEqual([1, 2, 3, 4]);
-        expect(xUtil.flatArray([1, [2, [3, 4, 5], 5], 6])).toEqual([1, 2, 3, 4, 5, 6]);
-        expect(xUtil.flatArray([1, [2, [3, [4, 5], 6], 7], 5, 8])).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+        expect(xUtil.flattenArray([1, [2, 3], 3, 4])).toEqual([1, 2, 3, 3, 4]);
+        expect(xUtil.flattenArray([1, [2, [3, 4, 5], 5], 6])).toEqual([1, 2, 3, 4, 5, 5, 6]);
+        expect(xUtil.flattenArray([1, [2, [3, [4, 5], 6], 7], 5, 8])).toEqual([1, 2, 3, 4, 5, 6, 7, 5, 8]);
+    });
+});
+
+describe('test xUtil.distinctArray', () => {
+    it("remove duplicated value from every level", () => {
+        expect(xUtil.distinctArray(1)).toEqual([1]);
+        expect(xUtil.distinctArray([1, 1])).toEqual([1]);
+        expect(xUtil.distinctArray([1, 2])).toEqual([1, 2]);
+        expect(xUtil.distinctArray([1, 2, 2])).toEqual([1, 2]);
     });
 });

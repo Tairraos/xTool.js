@@ -1,6 +1,6 @@
 {
   "name": "xtool.js",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Yet another tool package for node.",
   "main": "index.js",
   "repository": "https://github.com/Tairraos/xTool.js.git",
@@ -11,6 +11,12 @@
   },
   "jest": {
     "collectCoverage": true,
-    "coverageReporters": ["json", "html", "text", "text-summary"]
-  }
+    "coverageReporters": [
+      "json",
+      "html",
+      "text",
+      "text-summary"
+    ]
+  },
+  "dependencies": {}
 }
