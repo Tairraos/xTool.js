@@ -9,3 +9,5 @@ console.log(x.readDir(".", {
 
 x.replaceFile("README.md", /xFile/g, "xtool");
 x.replaceFile("README.md", /xUtil/g, "xtool");
+
+x.readWebFile("http://localhost", "demo.html");

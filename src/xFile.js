@@ -63,6 +63,7 @@ class xFile {
      * @return {array} list of file with absolute/relative path
      */
     readDir(root, setting) {
+        root = root || ".";
         setting = setting || {};
         if (xUtil.is(setting, "string")) setting = {
             find: setting
@@ -85,7 +86,8 @@ class xFile {
                         } else if (isDir && isRecursive) {
                             recursive(itemAbsolute);
                         }
-                    }``
+                    }
+                    ``
                 });
             };
         recursive(rootPath);

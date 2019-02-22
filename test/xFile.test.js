@@ -78,6 +78,7 @@ describe('test xFile.pattenMatcher', () => {
 
 describe('test xFile.readDir', () => {
     it("test readDir", () => {
+        expect(xFile.readDir()).toContain("README.md");
         expect(xFile.readDir(".")).toContain("README.md");
         expect(xFile.readDir(".", {
             find: "*.md"
