@@ -91,3 +91,13 @@ describe('test xUtil.distinctArray', () => {
         expect(xUtil.distinctArray([1, 2, 2])).toEqual([1, 2]);
     });
 });
+
+describe('test xUtil.getArgs', () => {
+    it("test number", () => {
+        expect(xUtil.typeof(xUtil.getArgs())).toBe("object");
+        process.argv.push("-f");
+        process.argv.push("test");
+        expect(xUtil.typeof(xUtil.getArgs())).toBe("object");
+    });
+    //Just test one type is enough, other case is by xUtil.typeof
+});
