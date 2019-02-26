@@ -67,6 +67,3 @@ class xUtil {
 };
 
 module.exports = new xUtil;
-process.argv.push("-f");
-process.argv.push("test");
-module.exports.getArgs();
