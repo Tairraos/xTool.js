@@ -13,7 +13,7 @@ class xNetwork {
      * @param {string} filename 
      * @param {function} callback 
      */
-    readWebFile(url, filename, callback) {
+    downloadWebFile(url, filename, callback) {
         var file = fs.createWriteStream(filename);
         var request = http.get(url, function (response) {
             response.pipe(file);

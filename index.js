@@ -30,7 +30,7 @@ let fs = require("fs"),
         numberChn2Ari: xNumber.numberChn2Ari,
         isLegalChnNum: xNumber.isLegalChnNum,
         decodeHtml: xHtml.decodeHtml,
-        readWebFile: xNetwork.readWebFile
+        downloadWebFile: xNetwork.downloadWebFile
     };
 
 module.exports = xTool;
