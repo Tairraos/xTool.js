@@ -54,13 +54,21 @@ class xUtil {
      * @return {object} - command line: "node xxx.js -x1 y1 -x2 y2", will return {x1:"y1", x2:"y2"}
      */
     getArgs() {
-        let argStr = process.argv.slice(2).map((i) => "{" + i + "}").join(""),
-            argPatten = argStr.match(/\{-([a-z])\}{([^-}]+)}/g),
-            args = {};
+        let argArr = [...process.argv.slice(2)],
+            args = {},
+            index = 1;
 
-        while (argPatten && argPatten.length) {
-            let [key, value] = argPatten.shift().match(/\{-([a-z])\}{([^-}]+)}/).slice(-2);
-            args[key] = value;
+        while (argArr.length) {
+            let item = argArr.shift();
+            if (item.match(/^-/)) {
+                if (argArr.length && argArr[0].match(/^[^-]/)) {
+                    args[item] = argArr.shift();
+                } else {
+                    args[item] = true;
+                }
+            } else {
+                args[index++] = item;
+            }
         }
         return args;
     }

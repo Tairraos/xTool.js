@@ -1,11 +1,14 @@
 {
   "name": "xtool.js",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Yet another tool package for node.",
   "main": "index.js",
   "repository": "https://github.com/Tairraos/xTool.js.git",
   "author": "xiaol.tao@gmail.com",
   "license": "MIT",
+  "scripts": {
+    "build": "node buildIndex.js"
+  },
   "devDependencies": {
     "jest": "^24.1.0"
   },
