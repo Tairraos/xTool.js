@@ -1,36 +1,36 @@
-let fs = require('fs'),
-    xUtil = require('./src/xUtil'),
-    xFile = require('./src/xFile'),
-    xNumber = require('./src/xNumber'),
-    xHtml = require('./src/xHtml'),
-    xBook = require('./src/xBook'),
-    xNetwork = require('./src/xNetwork'),
-    xTool = {};
-
-/**
- * list all function of class
- * @param {object} instance - class instance
- * @return {array}
- */
-function getOwnFunctions(instance) {
-    let proto = Object.getPrototypeOf(instance),
-        props = Object.getOwnPropertyNames(proto),
-        retObj = {};
-    props.filter((item) => {
-        let needExport = xUtil.is(instance[item], "function") && item !== "constructor";
-        if (needExport) {
-            retObj[item] = instance[item];
-        }
-        return needExport;
-    });
-    return retObj;
-}
-
-Object.assign(xTool, getOwnFunctions(xUtil));
-Object.assign(xTool, getOwnFunctions(xFile));
-Object.assign(xTool, getOwnFunctions(xNumber));
-Object.assign(xTool, getOwnFunctions(xHtml));
-Object.assign(xTool, getOwnFunctions(xBook));
-Object.assign(xTool, getOwnFunctions(xNetwork));
+let fs = require("fs"),
+    xUtil = require("./src/xUtil"),
+    xFile = require("./src/xFile"),
+    xNumber = require("./src/xNumber"),
+    xHtml = require("./src/xHtml"),
+    xBook = require("./src/xBook"),
+    xNetwork = require("./src/xNetwork"),
+    xTool = {
+        typeof: xUtil.typeof,
+        is: xUtil.is,
+        flattenArray: xUtil.flattenArray,
+        distinctArray: xUtil.distinctArray,
+        getArgs: xUtil.getArgs,
+        _resolvePatten: xFile._resolvePatten,
+        _pattenMatcher: xFile._pattenMatcher,
+        readDir: xFile.readDir,
+        readFile: xFile.readFile,
+        existFile: xFile.existFile,
+        existDir: xFile.existDir,
+        saveFile: xFile.saveFile,
+        removeFile: xFile.removeFile,
+        scanFile: xFile.scanFile,
+        scanListFile: xFile.scanListFile,
+        replaceFile: xFile.replaceFile,
+        _washData: xNumber._washData,
+        tolerant: xNumber.tolerant,
+        numberChnToBig: xNumber.numberChnToBig,
+        numberChnToSmall: xNumber.numberChnToSmall,
+        numberAri2Chn: xNumber.numberAri2Chn,
+        numberChn2Ari: xNumber.numberChn2Ari,
+        isLegalChnNum: xNumber.isLegalChnNum,
+        decodeHtml: xHtml.decodeHtml,
+        readWebFile: xNetwork.readWebFile
+    };
 
 module.exports = xTool;
