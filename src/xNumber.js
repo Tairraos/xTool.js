@@ -13,7 +13,7 @@ class xNumber {
      */
     _washData(data, patten) {
         let p = patten.split(",");
-        while (p.length) data = data.replace(new RegExp(p.shift(), "g"), p.shift());
+        while (p.length) data = data.replace(RegExp(p.shift(), "g"), p.shift());
         return data;
     }
 
@@ -87,9 +87,9 @@ class xNumber {
         // while (d.length) m[d.shift()] = +d.shift();
         if (this.isLegalChnNum(num)) {
             num = this._washData(this.tolerant(num), this.toAriNumPatten);
-            let secList = num.match(new RegExp(/亿/.test(num) ? this.matchChnNumPatten : this.matchChnNumSimplePatten)).slice(1);
+            let secList = num.match(RegExp(/亿/.test(num) ? this.matchChnNumPatten : this.matchChnNumSimplePatten)).slice(1);
             secList = secList.map((i) => i ? i : "0").map((sec) => {
-                sec = sec.match(new RegExp(this.matchChnNumSectionPatten));
+                sec = sec.match(RegExp(this.matchChnNumSectionPatten));
                 return sec.slice(1).map((i) => i ? +i : 0).reduceRight((x, y, i) => x + y * Math.pow(10, 3 - i));
             });
             return secList.map((i) => +i).reduceRight((x, y, i) => x + y * Math.pow(10000, secList.length - i - 1));
@@ -105,8 +105,8 @@ class xNumber {
     isLegalChnNum(num) {
         //replace 一二三四 to  1,2,3,4
         num = this._washData(this.tolerant(num), this.toAriNumPatten);
-        let secs = num.match(new RegExp(this.matchChnNumPatten));
-        return secs && secs.slice(1).map((i) => i ? i : "0").map((item) => !!item.match(new RegExp(this.matchChnNumSectionPatten))).reduce((x, y) => x && y);
+        let secs = num.match(RegExp(this.matchChnNumPatten));
+        return secs && secs.slice(1).map((i) => i ? i : "0").map((item) => !!item.match(RegExp(this.matchChnNumSectionPatten))).reduce((x, y) => x && y);
     }
 }
 module.exports = new xNumber;

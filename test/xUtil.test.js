@@ -15,7 +15,7 @@ describe('test xUtil.typeof', () => {
 
     it("test regexp", () => {
         expect(xUtil.typeof(/test/)).toBe("regexp");
-        expect(xUtil.typeof(new RegExp())).toBe("regexp");
+        expect(xUtil.typeof(RegExp())).toBe("regexp");
     });
 
     it("test boolean", () => {

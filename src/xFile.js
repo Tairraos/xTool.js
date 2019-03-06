@@ -20,7 +20,7 @@ class xFile {
                 case "string":
                     let isFile = !item.match(/\//),
                         basePatten = (isFile ? "^" : "") + item.replace(/\./g, "\\.").replace(/\*/g, ".+").replace(/\?/g, ".") + (isFile ? "$" : "");
-                    return item !== "" ? new RegExp(basePatten) : /$.^/;
+                    return item !== "" ? RegExp(basePatten) : /$.^/;
                 case "regexp":
                     return item;
                 default:
@@ -112,7 +112,7 @@ class xFile {
      * @return {boolean}
      */
     existFile(file) {
-        return fs.existsSync(file);
+        return fs.existsSync(file) && fs.statSync(file).isFile();
     }
 
     /**
@@ -121,7 +121,7 @@ class xFile {
      * @return {boolean}
      */
     existDir(dir) {
-        return fs.existsSync(dir);
+        return fs.existsSync(dir) && fs.statSync(dir).isDirectory();
     }
 
     /**
