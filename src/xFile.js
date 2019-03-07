@@ -130,9 +130,19 @@ class xFile {
      * @param {(string|array|object)} content - file content, array will be join with {crlf}, object will be str
      * @param {string} [encoding] - encoding
      */
-    saveFile(file, content, encoding) {
-        if (xUtil.is(file, "string")) {
-            content = xUtil.is(content, "array") ? xUtil.flattenArray(content).join("\n") :
+     saveFile(file, content, encoding) {
+             let prepareDir = (dir) => {
+                 if (this.existDir(dir)) {
+                     return;
+                 }
+                 if (!this.existDir(path.dirname(dir))) {
+                     prepareDir(path.dirname(dir))
+                 };
+                 fs.mkdirSync(dir);
+             }
+             if (xUtil.is(file, "string")) {
+                prepareDir(path.dirname(file));
+                 content = xUtil.is(content, "array") ? xUtil.flattenArray(content).join("\n") :
                 xUtil.is(content, "object") ? JSON.stringify(content) : content.toString();
             fs.writeFileSync(file, content, {
                 encoding: encoding || "utf8"

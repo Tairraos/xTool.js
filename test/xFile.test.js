@@ -1,4 +1,5 @@
-const xFile = require('../src/xFile');
+const fs = require("fs"),
+    xFile = require('../src/xFile');
 
 describe('test xFile.resolvePatten', () => {
     it("test illegal params will be a empty matched regexp", () => {
@@ -112,14 +113,17 @@ describe('test xFile.readDir', () => {
 
 describe('test xFile.readFile & saveFile & existFile & removeFile & replaceFile', () => {
     it("test file function", () => {
+        xFile.existFile("_tmp.txt") && xFile.removeFile("_tmp.txt");
+        xFile.existFile("_tmp1/tmp2/_tmp.txt") && xFile.removeFile("_tmp1/tmp2/_tmp.txt");
+        xFile.existDir("_tmp1/tmp2") && fs.rmdirSync("_tmp1/tmp2");
+        xFile.existDir("_tmp1") && fs.rmdirSync("_tmp1");
+        expect(xFile.saveFile("_tmp1/tmp2/_tmp.txt", "test content", "utf-8"));
+        expect(xFile.readFile("_tmp1/tmp2/_tmp.txt", "utf-8")).toBe("test content");
         expect(xFile.saveFile("_tmp.txt", "test content", "utf-8"));
         expect(xFile.readFile("_tmp.txt", "utf-8")).toBe("test content");
         expect(xFile.saveFile("_tmp.txt", ["test content", "antoher line"]));
         expect(xFile.readFile("_tmp.txt")).toBe("test content\nantoher line");
-        expect(xFile.saveFile("_tmp.txt", {
-            "test": "content",
-            "antoher": "line"
-        }));
+        expect(xFile.saveFile("_tmp.txt", {"test": "content","antoher": "line"}));
         expect(xFile.readFile("_tmp.txt")).toBe("{\"test\":\"content\",\"antoher\":\"line\"}");
         expect(xFile.replaceFile("_tmp.txt", "content", "line")).toBeUndefined();
         expect(xFile.readFile("_tmp.txt")).toBe("{\"test\":\"line\",\"antoher\":\"line\"}");
@@ -133,6 +137,10 @@ describe('test xFile.readFile & saveFile & existFile & removeFile & replaceFile'
         expect(xFile.existDir("src2")).toBeFalsy();
         expect(xFile.readFile("_tmp2.txt")).toBe("");
         expect(xFile.saveFile(["_tmp.txt"], "test content"));
+        xFile.existFile("_tmp.txt") && xFile.removeFile("_tmp.txt");
+        xFile.existFile("_tmp1/tmp2/_tmp.txt") && xFile.removeFile("_tmp1/tmp2/_tmp.txt");
+        xFile.existDir("_tmp1/tmp2") && fs.rmdirSync("_tmp1/tmp2");
+        xFile.existDir("_tmp1") && fs.rmdirSync("_tmp1");
     });
 });
 
