@@ -1,6 +1,6 @@
 const xNumber = require('../src/xNumber');
 
-describe('test xNumber.numberAri2Chn', () => {
+describe('test xNumber', () => {
 
     it("test tolerant", () => {
         expect(xNumber.tolerant("")).toBe("零");
@@ -147,5 +147,79 @@ describe('test xNumber.numberAri2Chn', () => {
         expect(xNumber.isLegalChnNum("一万亿零一万一千")).toBeTruthy();
         expect(xNumber.isLegalChnNum("一万万万")).toBeFalsy();
     });
-    
+
+    it("test numberAri2Roman", () => {
+        expect(xNumber.numberAri2Roman(316)).toBe("CCCXVI");
+        expect(xNumber.numberAri2Roman(256)).toBe("CCLVI");
+        expect(xNumber.numberAri2Roman(211)).toBe("CCXI");
+        expect(xNumber.numberAri2Roman(243)).toBe("CCXLIII");
+        expect(xNumber.numberAri2Roman(474)).toBe("CDLXXIV");
+        expect(xNumber.numberAri2Roman(141)).toBe("CXLI");
+        expect(xNumber.numberAri2Roman(128)).toBe("CXXVIII");
+        expect(xNumber.numberAri2Roman(711)).toBe("DCCXI");
+        expect(xNumber.numberAri2Roman(729)).toBe("DCCXXIX");
+        expect(xNumber.numberAri2Roman(512)).toBe("DXII");
+        expect(xNumber.numberAri2Roman(2)).toBe("II");
+        expect(xNumber.numberAri2Roman(3)).toBe("III");
+        expect(xNumber.numberAri2Roman(4)).toBe("IV");
+        expect(xNumber.numberAri2Roman(9)).toBe("IX");
+        expect(xNumber.numberAri2Roman(63)).toBe("LXIII");
+        expect(xNumber.numberAri2Roman(64)).toBe("LXIV");
+        expect(xNumber.numberAri2Roman(81)).toBe("LXXXI");
+        expect(xNumber.numberAri2Roman(1599)).toBe("MDXCIX");
+        expect(xNumber.numberAri2Roman(1066)).toBe("MLXVI");
+        expect(xNumber.numberAri2Roman(2398)).toBe("MMCCCXCVIII");
+        expect(xNumber.numberAri2Roman(2187)).toBe("MMCLXXXVII");
+        expect(xNumber.numberAri2Roman(3597)).toBe("MMMDXCVII");
+        expect(xNumber.numberAri2Roman(2048)).toBe("MMXLVIII");
+        expect(xNumber.numberAri2Roman(1024)).toBe("MXXIV");
+        expect(xNumber.numberAri2Roman(6)).toBe("VI");
+        expect(xNumber.numberAri2Roman(8)).toBe("VIII");
+        expect(xNumber.numberAri2Roman(94)).toBe("XCIV");
+        expect(xNumber.numberAri2Roman(13)).toBe("XIII");
+        expect(xNumber.numberAri2Roman(19)).toBe("XIX");
+        expect(xNumber.numberAri2Roman(42)).toBe("XLII");
+        expect(xNumber.numberAri2Roman(16)).toBe("XVI");
+        expect(xNumber.numberAri2Roman(27)).toBe("XXVII");
+        expect(xNumber.numberAri2Roman(28)).toBe("XXVIII");
+        expect(xNumber.numberAri2Roman(32)).toBe("XXXII");
+    });
+
+    it("test numberRoman2Ari", () => {
+        expect(xNumber.numberRoman2Ari("CCCXVI")).toBe(316);
+        expect(xNumber.numberRoman2Ari("CCLVI")).toBe(256);
+        expect(xNumber.numberRoman2Ari("CCXI")).toBe(211);
+        expect(xNumber.numberRoman2Ari("CCXLIII")).toBe(243);
+        expect(xNumber.numberRoman2Ari("CDLXXIV")).toBe(474);
+        expect(xNumber.numberRoman2Ari("CXLI")).toBe(141);
+        expect(xNumber.numberRoman2Ari("CXXVIII")).toBe(128);
+        expect(xNumber.numberRoman2Ari("DCCXI")).toBe(711);
+        expect(xNumber.numberRoman2Ari("DCCXXIX")).toBe(729);
+        expect(xNumber.numberRoman2Ari("DXII")).toBe(512);
+        expect(xNumber.numberRoman2Ari("II")).toBe(2);
+        expect(xNumber.numberRoman2Ari("III")).toBe(3);
+        expect(xNumber.numberRoman2Ari("IV")).toBe(4);
+        expect(xNumber.numberRoman2Ari("IX")).toBe(9);
+        expect(xNumber.numberRoman2Ari("LXIII")).toBe(63);
+        expect(xNumber.numberRoman2Ari("LXIV")).toBe(64);
+        expect(xNumber.numberRoman2Ari("LXXXI")).toBe(81);
+        expect(xNumber.numberRoman2Ari("MDXCIX")).toBe(1599);
+        expect(xNumber.numberRoman2Ari("MLXVI")).toBe(1066);
+        expect(xNumber.numberRoman2Ari("MMCCCXCVIII")).toBe(2398);
+        expect(xNumber.numberRoman2Ari("MMCLXXXVII")).toBe(2187);
+        expect(xNumber.numberRoman2Ari("MMMDXCVII")).toBe(3597);
+        expect(xNumber.numberRoman2Ari("MMXLVIII")).toBe(2048);
+        expect(xNumber.numberRoman2Ari("MXXIV")).toBe(1024);
+        expect(xNumber.numberRoman2Ari("VI")).toBe(6);
+        expect(xNumber.numberRoman2Ari("VIII")).toBe(8);
+        expect(xNumber.numberRoman2Ari("XCIV")).toBe(94);
+        expect(xNumber.numberRoman2Ari("XIII")).toBe(13);
+        expect(xNumber.numberRoman2Ari("XIX")).toBe(19);
+        expect(xNumber.numberRoman2Ari("XLII")).toBe(42);
+        expect(xNumber.numberRoman2Ari("XVI")).toBe(16);
+        expect(xNumber.numberRoman2Ari("XXVII")).toBe(27);
+        expect(xNumber.numberRoman2Ari("XXVIII")).toBe(28);
+        expect(xNumber.numberRoman2Ari("XXXII")).toBe(32);
+    });
+
 });

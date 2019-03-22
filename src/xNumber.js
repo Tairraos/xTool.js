@@ -18,10 +18,10 @@ class xNumber {
     }
 
     /**
-     * constructor
+     * 构造函数
      * @private
      */
-    constructor() { //构造函数
+    constructor() {
         this.tolerantPatten = [
             "零+|^$,零,^零(.)|(.)零$,$1$2,^一十,十,百零?十,百一十,百([一二三四五六七八九])([^十]|$),百零$1$2,千([一二三四五六七八九])([^百]|$),千零$1$2",
             "(万|亿)([一二三四五六七八九])([^千]|$),$1零$2$3,(十|百|千)(万|亿)([^零万亿]),$1$2零$3,亿万,亿"
@@ -106,7 +106,37 @@ class xNumber {
         //replace 一二三四 to  1,2,3,4
         num = this._washData(this.tolerant(num), this.toAriNumPatten);
         let secs = num.match(RegExp(this.matchChnNumPatten));
-        return secs && secs.slice(1).map((i) => i ? i : "0").map((item) => !!item.match(RegExp(this.matchChnNumSectionPatten))).reduce((x, y) => x && y);
+        return secs && secs.slice(1).map((i) => i ? i : "0")
+            .map((item) => !!item.match(RegExp(this.matchChnNumSectionPatten))).reduce((x, y) => x && y);
     }
+
+    /**
+     * 阿拉伯数字转罗马数字
+     * @param {number} num - 范围0-3999
+     * @return {string}
+     */
+    numberAri2Roman(num) {
+        let dict = [
+            ["", "M", "MM", "MMM"],
+            ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"],
+            ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"],
+            ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
+        ];
+
+        //凑满4位数, 拆成数组，每个数字转成字典里对应的罗马数字，再转回字串
+        return ("000" + num).replace(/.*(....)$/, "$1").split("").map((n, i) => dict[i][+n]).join("");
+    }
+
+    /**
+     * 罗马数字转阿拉伯数字
+     * @param {string} s - 范围0-3999
+     * @return {number}
+     */
+    numberRoman2Ari(s) {
+        //权重字典
+        let d = {"M":1000, "D":500, "C":100, "L":50, "X":10, "V":5, "I":1};
+        return [0, ...s.split("")].reduce((a, b, i, s) => a + (d[b] < d[s[i + 1]] ? -d[b] : d[b]));
+    }
+
 }
 module.exports = new xNumber;
