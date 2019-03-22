@@ -115,3 +115,28 @@ describe('test xUtil.getArgs', () => {
         });
     });
 });
+
+describe('test xUtil.range', () => {
+    it("test number", () => {
+        //字母
+        expect(xUtil.range("d")).toEqual(["a", "b", "c", "d"]);
+        expect(xUtil.range("b", "d")).toEqual(["b", "c", "d"]);
+        expect(xUtil.range("D")).toEqual(["A", "B", "C", "D"]);
+        expect(xUtil.range("B", "D")).toEqual(["B", "C", "D"]);
+
+        expect(xUtil.range(5)).toEqual([0, 1, 2, 3, 4, 5]);
+        expect(xUtil.range(2, 5)).toEqual([2, 3, 4, 5]);
+        //start类型优先
+        expect(xUtil.range(2, "5")).toEqual([2, 3, 4, 5]);
+        expect(xUtil.range("2", 5)).toEqual(["2", "3", "4", "5"]);
+        //字符型数字
+        expect(xUtil.range("5")).toEqual(["0", "1", "2", "3", "4", "5"]);
+        expect(xUtil.range("2", "5")).toEqual(["2", "3", "4", "5"]);
+        //字母
+        expect(xUtil.range("d")).toEqual(["a", "b", "c", "d"]);
+        expect(xUtil.range("b", "d")).toEqual(["b", "c", "d"]);
+        expect(xUtil.range("D")).toEqual(["A", "B", "C", "D"]);
+        expect(xUtil.range("B", "D")).toEqual(["B", "C", "D"]);
+        expect(xUtil.range([1], [5])).toEqual([]);
+    });
+});
