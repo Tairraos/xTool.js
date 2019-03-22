@@ -3,8 +3,6 @@
 ## xtool
 Yet another tool package for node
 
-## Classes
-
 <dl>
 <dt><a href="#xBook">xBook</a></dt>
 <dd><p>E-Book relative tools of xTool</p>
@@ -187,9 +185,9 @@ transfer &#DDDD; & &#xHHHH; it was. make sure the html page under utf-8;
 Network relative tools of xTool
 
 **Kind**: global class  
-<a name="xNetwork+readWebFile"></a>
+<a name="xNetwork+downloadWebFile"></a>
 
-### xNetwork.readWebFile(url, filename, callback)
+### xNetwork.downloadWebFile(url, filename, callback)
 async download file from internet
 
 **Kind**: instance method of [<code>xNetwork</code>](#xNetwork)  
@@ -215,11 +213,13 @@ Number relative tools of xTool
     * [.numberAri2Chn(num)](#xNumber+numberAri2Chn) ⇒ <code>string</code>
     * [.numberChn2Ari(num)](#xNumber+numberChn2Ari) ⇒ <code>number</code>
     * [.isLegalChnNum(num)](#xNumber+isLegalChnNum) ⇒ <code>string</code>
+    * [.numberAri2Roman(num)](#xNumber+numberAri2Roman) ⇒ <code>string</code>
+    * [.numberRoman2Ari(s)](#xNumber+numberRoman2Ari) ⇒ <code>number</code>
 
 <a name="new_xNumber_new"></a>
 
 ### new xNumber()
-constructor
+构造函数
 
 <a name="xNumber+tolerant"></a>
 
@@ -293,6 +293,28 @@ constructor
 | --- | --- | --- |
 | num | <code>string</code> | 中文数字，大于零，小于一亿亿 |
 
+<a name="xNumber+numberAri2Roman"></a>
+
+### xNumber.numberAri2Roman(num) ⇒ <code>string</code>
+阿拉伯数字转罗马数字
+
+**Kind**: instance method of [<code>xNumber</code>](#xNumber)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| num | <code>number</code> | 范围0-3999 |
+
+<a name="xNumber+numberRoman2Ari"></a>
+
+### xNumber.numberRoman2Ari(s) ⇒ <code>number</code>
+罗马数字转阿拉伯数字
+
+**Kind**: instance method of [<code>xNumber</code>](#xNumber)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| s | <code>string</code> | 范围0-3999 |
+
 <a name="xUtil"></a>
 
 ## xUtil
@@ -306,6 +328,7 @@ Utility of xTool
     * [.flattenArray(arg)](#xUtil+flattenArray) ⇒ <code>array</code>
     * [.distinctArray(arg)](#xUtil+distinctArray) ⇒ <code>array</code>
     * [.getArgs()](#xUtil+getArgs) ⇒ <code>object</code>
+    * [.range(start, [end])](#xUtil+range) ⇒ <code>array</code>
 
 <a name="xUtil+typeof"></a>
 
@@ -329,7 +352,7 @@ compare the value type with expect type
 | Param | Type | Description |
 | --- | --- | --- |
 | value | <code>\*</code> | value will be test |
-| type | <code>\*</code> | expect type |
+| type | <code>string</code> | expect type |
 
 <a name="xUtil+flattenArray"></a>
 
@@ -358,7 +381,19 @@ remove duplicated value of array
 <a name="xUtil+getArgs"></a>
 
 ### xUtil.getArgs() ⇒ <code>object</code>
-get node command args.
+get node command args
 
 **Kind**: instance method of [<code>xUtil</code>](#xUtil)  
 **Returns**: <code>object</code> - - command line: "node xxx.js -x1 y1 -x2 y2", will return {x1:"y1", x2:"y2"}  
+<a name="xUtil+range"></a>
+
+### xUtil.range(start, [end]) ⇒ <code>array</code>
+generate values array of specified range, number range should be 0 to 2^32
+
+**Kind**: instance method of [<code>xUtil</code>](#xUtil)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| start | <code>number</code> \| <code>string</code> | if "end" is not provided, the range is (0 or "0" or "a" or "A") to "start" |
+| [end] | <code>number</code> \| <code>string</code> |  |
+

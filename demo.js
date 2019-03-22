@@ -1,7 +1,7 @@
 let fs = require('fs'),
     path = require('path'),
-    x = require('./index');
-
+    x = require('./index'),
+    args = x.getArgs();
 
 // console.log(x.readDir(".", {
 //     find: "*.md"
@@ -14,6 +14,6 @@ x.replaceFile("README.md", /xNetwork/g, "xtool");
 x.replaceFile("README.md", /xBook/g, "xtool");
 x.replaceFile("README.md", /xNumber/g, "xtool");
 
-x.downloadWebFile("http://localhost", "demo.html");
+// x.downloadWebFile("http://localhost", "demo.html");
 
 console.log(args);
