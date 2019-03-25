@@ -1,7 +1,8 @@
 /**
  * Utility of xTool
  */
-class xUtil {
+let xUtil =  Function();
+Object.assign(xUtil, {
     /**
      * return the truly type of arg
      * @param {*} arg - any type arg
@@ -9,7 +10,7 @@ class xUtil {
      */
     typeof (arg) {
         return Object.prototype.toString.call(arg).slice(8, -1).toLowerCase();
-    }
+    },
 
     /**
      * compare the value type with expect type
@@ -18,8 +19,8 @@ class xUtil {
      * @return {boolean}
      */
     is(value, type) {
-        return this.typeof(value) === type.toString().toLowerCase();
-    }
+        return xUtil.typeof(value) === type.toString().toLowerCase();
+    },
 
     /**
      * recursive embeded array to a flat array, and will remove duplicated value
@@ -29,16 +30,16 @@ class xUtil {
     flattenArray(arg) {
         let pattenArray = [],
             recursive = (param) => {
-                if (this.typeof(param) === "array") {
+                if (xUtil.typeof(param) === "array") {
                     param.forEach((subParam) =>
-                        (this.is(subParam, "array")) ? recursive(subParam) : pattenArray.push(subParam));
+                        (xUtil.is(subParam, "array")) ? recursive(subParam) : pattenArray.push(subParam));
                 } else {
                     pattenArray.push(param);
                 }
             };
         recursive(arg);
         return pattenArray;
-    }
+    },
 
     /**
      * remove duplicated value of array
@@ -46,8 +47,8 @@ class xUtil {
      * @return {array} return an array with every unquie value
      */
     distinctArray(arg) {
-        return this.is(arg, "array") ? [...new Set(arg)] : [arg];
-    }
+        return xUtil.is(arg, "array") ? [...new Set(arg)] : [arg];
+    },
 
     /**
      * get node command args
@@ -71,7 +72,7 @@ class xUtil {
             }
         }
         return args;
-    }
+    },
 
     /**
      * generate values array of specified range, number range should be 0 to 2^32
@@ -80,7 +81,7 @@ class xUtil {
      * @return {array}
      */
     range(start, end) {
-        let type = this.typeof(start),
+        let type = xUtil.typeof(start),
             patt = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
             inNumLimit = n => n >= 0 && n <= 4294967296,
             numRange = (start, end) => Array(end - start + 1).fill().map((n, i) => i + start),
@@ -95,6 +96,6 @@ class xUtil {
         return [];
     }
 
-};
+});
 
-module.exports = new xUtil;
+module.exports = xUtil;

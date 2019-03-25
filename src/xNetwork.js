@@ -5,7 +5,8 @@ let http = require("http"),
 /**
  * Network relative tools of xTool
  */
-class xNetwork {
+let xNetwork = Function();
+Object.assign(xNetwork, {
 
     /**
      * async download file from internet
@@ -25,7 +26,7 @@ class xNetwork {
         }).on("error", function (err) { // Handle errors
             fs.unlink(filename); // Delete the file async. (But we don't check the result)
         });
-    };
-};
+    }
+});
 
-module.exports = new xNetwork;
+module.exports = xNetwork;

@@ -1,8 +1,9 @@
 /**
  * E-Book relative tools of xTool
  */
-class xBook {
+let xBook =  Function();
+Object.assign(xBook, {
 
-};
+});
 
-module.exports = new xBook;
+module.exports = xBook;

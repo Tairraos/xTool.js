@@ -1,7 +1,8 @@
 /**
  * HTML relative tools of xTool
  */
-class xHtml {
+let xHtml =  Function();
+Object.assign(xHtml, {
     /**
      * transfer &#DDDD; & &#xHHHH; it was. make sure the html page under utf-8;
      * @param {string} htmlContent - included  
@@ -13,7 +14,7 @@ class xHtml {
         }).replace(/&#x([A-Fa-f\d]+);/g, function (match, hex) {
             return String.fromCharCode(parseInt(hex, 16));
         });
-    };
-};
+    }
+});
 
-module.exports = new xHtml;
+module.exports = xHtml;
