@@ -1,8 +1,7 @@
 /**
  * Number relative tools of xTool
  */
-let xNumber =  Function();
-Object.assign(xNumber, {
+let xNumber = Object.assign(Function(), {
     tolerantPatten: [
         "零+|^$,零,^零(.)|(.)零$,$1$2,^一十,十,百零?十,百一十,百([一二三四五六七八九])([^十]|$),百零$1$2,千([一二三四五六七八九])([^百]|$),千零$1$2",
         "(万|亿)([一二三四五六七八九])([^千]|$),$1零$2$3,(十|百|千)(万|亿)([^零万亿]),$1$2零$3,亿万,亿"
@@ -98,7 +97,7 @@ Object.assign(xNumber, {
      */
     isLegalChnNum(num) {
         //replace 一二三四 to  1,2,3,4
-        num = xNumber._washData(xNumber.tolerant(num), xNumber.toAriNumPatten);
+        num = xNumber._washData(xNumber.tolerant("" + num), xNumber.toAriNumPatten);
         let secs = num.match(RegExp(xNumber.matchChnNumPatten));
         return secs && secs.slice(1).map((i) => i ? i : "0")
             .map((item) => !!item.match(RegExp(xNumber.matchChnNumSectionPatten))).reduce((x, y) => x && y);

@@ -5,8 +5,7 @@ let http = require("http"),
 /**
  * Network relative tools of xTool
  */
-let xNetwork = Function();
-Object.assign(xNetwork, {
+let xNetwork = Object.assign(Function(), {
 
     /**
      * async download file from internet

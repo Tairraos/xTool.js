@@ -65,6 +65,7 @@ describe('test xNumber', () => {
     });
 
     it("test numberChn2Ari", () => {
+        expect(xNumber.numberChn2Ari(1234)).toBe(-1);
         expect(xNumber.numberChn2Ari("一一")).toBe(-1);
         expect(xNumber.numberChn2Ari("一")).toBe(1);
         expect(xNumber.numberChn2Ari("二")).toBe(2);

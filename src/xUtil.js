@@ -1,8 +1,7 @@
 /**
  * Utility of xTool
  */
-let xUtil =  Function();
-Object.assign(xUtil, {
+let xUtil = Object.assign(Function(), {
     /**
      * return the truly type of arg
      * @param {*} arg - any type arg

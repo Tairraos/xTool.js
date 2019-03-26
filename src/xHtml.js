@@ -1,8 +1,7 @@
 /**
  * HTML relative tools of xTool
  */
-let xHtml =  Function();
-Object.assign(xHtml, {
+let xHtml = Object.assign(Function(), {
     /**
      * transfer &#DDDD; & &#xHHHH; it was. make sure the html page under utf-8;
      * @param {string} htmlContent - included  

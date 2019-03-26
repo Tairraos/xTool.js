@@ -5,8 +5,7 @@ let fs = require('fs'),
 /**
  * File relative tools of xTool
  */
-let xFile =  Function();
-Object.assign(xFile, {
+let xFile = Object.assign(Function(), {
     /**
      * Resolve patten, transfer wildcard patten to regexp format
      * @private
