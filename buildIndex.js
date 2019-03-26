@@ -26,7 +26,6 @@ xFile.saveFile("index.js", [
     `    xFile = require("./src/xFile"),`,
     `    xNumber = require("./src/xNumber"),`,
     `    xHtml = require("./src/xHtml"),`,
-    `    xBook = require("./src/xBook"),`,
     `    xNetwork = require("./src/xNetwork"),`,
     `    xTool = {`,
     methodList.join(",\n"),

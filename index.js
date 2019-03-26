@@ -3,7 +3,6 @@ let fs = require("fs"),
     xFile = require("./src/xFile"),
     xNumber = require("./src/xNumber"),
     xHtml = require("./src/xHtml"),
-    xBook = require("./src/xBook"),
     xNetwork = require("./src/xNetwork"),
     xTool = {
         typeof: xUtil.typeof,
