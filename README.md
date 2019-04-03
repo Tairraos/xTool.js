@@ -4,9 +4,6 @@
 Yet another tool package for node
 
 <dl>
-<dt><a href="#xBook">xBook</a></dt>
-<dd><p>E-Book relative tools of xTool</p>
-</dd>
 <dt><a href="#xFile">xFile</a></dt>
 <dd><p>File relative tools of xTool</p>
 </dd>
@@ -24,36 +21,122 @@ Yet another tool package for node
 </dd>
 </dl>
 
-<a name="xBook"></a>
+## Functions
 
-## xBook
-E-Book relative tools of xTool
+<dl>
+<dt><a href="#readDir">readDir(root, [setting])</a> ⇒ <code>array</code></dt>
+<dd><p>Get file list from a root path with configure</p>
+</dd>
+<dt><a href="#readFile">readFile(file, [encoding])</a> ⇒ <code>string</code></dt>
+<dd><p>Read file content</p>
+</dd>
+<dt><a href="#existFile">existFile(file)</a> ⇒ <code>boolean</code></dt>
+<dd><p>Test file exist or not</p>
+</dd>
+<dt><a href="#existDir">existDir(dir)</a> ⇒ <code>boolean</code></dt>
+<dd><p>Test dir exist or not</p>
+</dd>
+<dt><a href="#saveFile">saveFile(file, content, [encoding])</a></dt>
+<dd><p>Save content to file</p>
+</dd>
+<dt><a href="#removeFile">removeFile(file)</a> ⇒ <code>boolean</code></dt>
+<dd><p>Alias of fs.unlinkSync</p>
+</dd>
+<dt><a href="#scanFile">scanFile(file, callback)</a></dt>
+<dd><p>scan file by line, and do callback to content of each line</p>
+</dd>
+<dt><a href="#scanListFile">scanListFile(list, callback)</a></dt>
+<dd><p>scan all file in list by line, and do callback to content of each line</p>
+</dd>
+<dt><a href="#replaceFile">replaceFile(file, patten|callback, [replacement])</a></dt>
+<dd><p>replace file content with patten &amp; replacement</p>
+</dd>
+<dt><a href="#decodeHtml">decodeHtml(htmlContent)</a> ⇒ <code>string</code></dt>
+<dd><p>transfer &#DDDD; &amp; &#xHHHH; it was. make sure the html page under utf-8;</p>
+</dd>
+<dt><a href="#downloadWebFile">downloadWebFile(url, filename, callback)</a></dt>
+<dd><p>async download file from internet</p>
+</dd>
+<dt><a href="#tolerant">tolerant(num)</a> ⇒ <code>string</code></dt>
+<dd><p>修正中文数字常见的错误，并转小写</p>
+</dd>
+<dt><a href="#numberChnToBig">numberChnToBig(num)</a> ⇒ <code>string</code></dt>
+<dd><p>中文数字小写转大写，“万”，“亿”是不区分大小写的</p>
+</dd>
+<dt><a href="#numberChnToSmall">numberChnToSmall(num)</a> ⇒ <code>string</code></dt>
+<dd><p>中文数字小写转大写，“万”，“亿”是不区分大小写的</p>
+</dd>
+<dt><a href="#numberAri2Chn">numberAri2Chn(num)</a> ⇒ <code>string</code></dt>
+<dd><p>阿拉伯数字转中文数字</p>
+</dd>
+<dt><a href="#numberChn2Ari">numberChn2Ari(num)</a> ⇒ <code>number</code></dt>
+<dd><p>中文数字转阿拉伯数字</p>
+</dd>
+<dt><a href="#isLegalChnNum">isLegalChnNum(num)</a> ⇒ <code>string</code></dt>
+<dd><p>检查中文数字合法性，能通过基本容错也为合法</p>
+</dd>
+<dt><a href="#numberAri2Roman">numberAri2Roman(num)</a> ⇒ <code>string</code></dt>
+<dd><p>阿拉伯数字转罗马数字</p>
+</dd>
+<dt><a href="#numberRoman2Ari">numberRoman2Ari(s)</a> ⇒ <code>number</code></dt>
+<dd><p>罗马数字转阿拉伯数字</p>
+</dd>
+<dt><a href="#typeof">typeof(arg)</a> ⇒ <code>string</code></dt>
+<dd><p>return the truly type of arg</p>
+</dd>
+<dt><a href="#is">is(value, type)</a> ⇒ <code>boolean</code></dt>
+<dd><p>compare the value type with expect type</p>
+</dd>
+<dt><a href="#flattenArray">flattenArray(arg)</a> ⇒ <code>array</code></dt>
+<dd><p>recursive embeded array to a flat array, and will remove duplicated value</p>
+</dd>
+<dt><a href="#distinctArray">distinctArray(arg)</a> ⇒ <code>array</code></dt>
+<dd><p>remove duplicated value of array</p>
+</dd>
+<dt><a href="#getArgs">getArgs()</a> ⇒ <code>object</code></dt>
+<dd><p>get node command args</p>
+</dd>
+<dt><a href="#range">range(start, [end])</a> ⇒ <code>array</code></dt>
+<dd><p>generate values array of specified range, number range should be 0 to 2^32</p>
+</dd>
+</dl>
 
-**Kind**: global class  
 <a name="xFile"></a>
 
 ## xFile
 File relative tools of xTool
 
-**Kind**: global class  
+**Kind**: global variable  
+<a name="xHtml"></a>
 
-* [xFile](#xFile)
-    * [.readDir(root, [setting])](#xFile+readDir) ⇒ <code>array</code>
-    * [.readFile(file, [encoding])](#xFile+readFile) ⇒ <code>string</code>
-    * [.existFile(file)](#xFile+existFile) ⇒ <code>boolean</code>
-    * [.existDir(dir)](#xFile+existDir) ⇒ <code>boolean</code>
-    * [.saveFile(file, content, [encoding])](#xFile+saveFile)
-    * [.removeFile(file)](#xFile+removeFile) ⇒ <code>boolean</code>
-    * [.scanFile(file, callback)](#xFile+scanFile)
-    * [.scanListFile(list, callback)](#xFile+scanListFile)
-    * [.replaceFile(file, patten|callback, [replacement])](#xFile+replaceFile)
+## xHtml
+HTML relative tools of xTool
 
-<a name="xFile+readDir"></a>
+**Kind**: global variable  
+<a name="xNetwork"></a>
 
-### xFile.readDir(root, [setting]) ⇒ <code>array</code>
+## xNetwork
+Network relative tools of xTool
+
+**Kind**: global variable  
+<a name="xNumber"></a>
+
+## xNumber
+Number relative tools of xTool
+
+**Kind**: global variable  
+<a name="xUtil"></a>
+
+## xUtil
+Utility of xTool
+
+**Kind**: global variable  
+<a name="readDir"></a>
+
+## readDir(root, [setting]) ⇒ <code>array</code>
 Get file list from a root path with configure
 
-**Kind**: instance method of [<code>xFile</code>](#xFile)  
+**Kind**: global function  
 **Returns**: <code>array</code> - list of file with absolute/relative path  
 
 | Param | Type | Description |
@@ -65,12 +148,12 @@ Get file list from a root path with configure
 | [setting.find] | <code>string</code> \| <code>regexp</code> \| <code>array</code> | provide human patten or human patten list to define filename matcher. [default is "*"] |
 | [setting.ignore] | <code>string</code> \| <code>regexp</code> \| <code>array</code> | provide human patten or human patten list to define which filename will be ignored. [default is none] |
 
-<a name="xFile+readFile"></a>
+<a name="readFile"></a>
 
-### xFile.readFile(file, [encoding]) ⇒ <code>string</code>
+## readFile(file, [encoding]) ⇒ <code>string</code>
 Read file content
 
-**Kind**: instance method of [<code>xFile</code>](#xFile)  
+**Kind**: global function  
 **Returns**: <code>string</code> - if file not exist, will return empty string  
 
 | Param | Type | Description |
@@ -78,34 +161,34 @@ Read file content
 | file | <code>string</code> | path to file |
 | [encoding] | <code>string</code> | encoding |
 
-<a name="xFile+existFile"></a>
+<a name="existFile"></a>
 
-### xFile.existFile(file) ⇒ <code>boolean</code>
+## existFile(file) ⇒ <code>boolean</code>
 Test file exist or not
 
-**Kind**: instance method of [<code>xFile</code>](#xFile)  
+**Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | file | <code>string</code> | path to file |
 
-<a name="xFile+existDir"></a>
+<a name="existDir"></a>
 
-### xFile.existDir(dir) ⇒ <code>boolean</code>
+## existDir(dir) ⇒ <code>boolean</code>
 Test dir exist or not
 
-**Kind**: instance method of [<code>xFile</code>](#xFile)  
+**Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | dir | <code>string</code> | path |
 
-<a name="xFile+saveFile"></a>
+<a name="saveFile"></a>
 
-### xFile.saveFile(file, content, [encoding])
+## saveFile(file, content, [encoding])
 Save content to file
 
-**Kind**: instance method of [<code>xFile</code>](#xFile)  
+**Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -113,48 +196,48 @@ Save content to file
 | content | <code>string</code> \| <code>array</code> \| <code>object</code> | file content, array will be join with {crlf}, object will be str |
 | [encoding] | <code>string</code> | encoding |
 
-<a name="xFile+removeFile"></a>
+<a name="removeFile"></a>
 
-### xFile.removeFile(file) ⇒ <code>boolean</code>
+## removeFile(file) ⇒ <code>boolean</code>
 Alias of fs.unlinkSync
 
-**Kind**: instance method of [<code>xFile</code>](#xFile)  
+**Kind**: global function  
 **Returns**: <code>boolean</code> - if file not exist, return false  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | file | <code>string</code> | path to file |
 
-<a name="xFile+scanFile"></a>
+<a name="scanFile"></a>
 
-### xFile.scanFile(file, callback)
+## scanFile(file, callback)
 scan file by line, and do callback to content of each line
 
-**Kind**: instance method of [<code>xFile</code>](#xFile)  
+**Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | file | <code>string</code> | filename |
 | callback | <code>function</code> | call back func(lineContent, lineNumber) |
 
-<a name="xFile+scanListFile"></a>
+<a name="scanListFile"></a>
 
-### xFile.scanListFile(list, callback)
+## scanListFile(list, callback)
 scan all file in list by line, and do callback to content of each line
 
-**Kind**: instance method of [<code>xFile</code>](#xFile)  
+**Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | list | <code>array</code> | the file list from readDir() |
 | callback | <code>function</code> | call back func(lineContent, lineNumber, fileName) |
 
-<a name="xFile+replaceFile"></a>
+<a name="replaceFile"></a>
 
-### xFile.replaceFile(file, patten|callback, [replacement])
+## replaceFile(file, patten|callback, [replacement])
 replace file content with patten & replacement
 
-**Kind**: instance method of [<code>xFile</code>](#xFile)  
+**Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -162,35 +245,23 @@ replace file content with patten & replacement
 | patten|callback | <code>string</code> \| <code>regexp</code> \| <code>function</code> | - |
 | [replacement] | <code>string</code> | if patten provided, replacement must provide, if patten is regexp, replacement can use the captured value by $1, $2, etc. |
 
-<a name="xHtml"></a>
+<a name="decodeHtml"></a>
 
-## xHtml
-HTML relative tools of xTool
-
-**Kind**: global class  
-<a name="xHtml+decodeHtml"></a>
-
-### xHtml.decodeHtml(htmlContent) ⇒ <code>string</code>
+## decodeHtml(htmlContent) ⇒ <code>string</code>
 transfer &#DDDD; & &#xHHHH; it was. make sure the html page under utf-8;
 
-**Kind**: instance method of [<code>xHtml</code>](#xHtml)  
+**Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | htmlContent | <code>string</code> | included |
 
-<a name="xNetwork"></a>
+<a name="downloadWebFile"></a>
 
-## xNetwork
-Network relative tools of xTool
-
-**Kind**: global class  
-<a name="xNetwork+downloadWebFile"></a>
-
-### xNetwork.downloadWebFile(url, filename, callback)
+## downloadWebFile(url, filename, callback)
 async download file from internet
 
-**Kind**: instance method of [<code>xNetwork</code>](#xNetwork)  
+**Kind**: global function  
 
 | Param | Type |
 | --- | --- |
@@ -198,199 +269,161 @@ async download file from internet
 | filename | <code>string</code> | 
 | callback | <code>function</code> | 
 
-<a name="xNumber"></a>
+<a name="tolerant"></a>
 
-## xNumber
-Number relative tools of xTool
-
-**Kind**: global class  
-
-* [xNumber](#xNumber)
-    * [new xNumber()](#new_xNumber_new)
-    * [.tolerant(num)](#xNumber+tolerant) ⇒ <code>string</code>
-    * [.numberChnToBig(num)](#xNumber+numberChnToBig) ⇒ <code>string</code>
-    * [.numberChnToSmall(num)](#xNumber+numberChnToSmall) ⇒ <code>string</code>
-    * [.numberAri2Chn(num)](#xNumber+numberAri2Chn) ⇒ <code>string</code>
-    * [.numberChn2Ari(num)](#xNumber+numberChn2Ari) ⇒ <code>number</code>
-    * [.isLegalChnNum(num)](#xNumber+isLegalChnNum) ⇒ <code>string</code>
-    * [.numberAri2Roman(num)](#xNumber+numberAri2Roman) ⇒ <code>string</code>
-    * [.numberRoman2Ari(s)](#xNumber+numberRoman2Ari) ⇒ <code>number</code>
-
-<a name="new_xNumber_new"></a>
-
-### new xNumber()
-构造函数
-
-<a name="xNumber+tolerant"></a>
-
-### xNumber.tolerant(num) ⇒ <code>string</code>
+## tolerant(num) ⇒ <code>string</code>
 修正中文数字常见的错误，并转小写
 
-**Kind**: instance method of [<code>xNumber</code>](#xNumber)  
+**Kind**: global function  
 **Returns**: <code>string</code> - 不校验数字拼写是否正确，只转换常错的拼写  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | num | <code>string</code> | 中文数字 |
 
-<a name="xNumber+numberChnToBig"></a>
+<a name="numberChnToBig"></a>
 
-### xNumber.numberChnToBig(num) ⇒ <code>string</code>
+## numberChnToBig(num) ⇒ <code>string</code>
 中文数字小写转大写，“万”，“亿”是不区分大小写的
 
-**Kind**: instance method of [<code>xNumber</code>](#xNumber)  
+**Kind**: global function  
 **Returns**: <code>string</code> - 不校验数字拼写是否正确，只转换大写  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | num | <code>string</code> | 中文数字 |
 
-<a name="xNumber+numberChnToSmall"></a>
+<a name="numberChnToSmall"></a>
 
-### xNumber.numberChnToSmall(num) ⇒ <code>string</code>
+## numberChnToSmall(num) ⇒ <code>string</code>
 中文数字小写转大写，“万”，“亿”是不区分大小写的
 
-**Kind**: instance method of [<code>xNumber</code>](#xNumber)  
+**Kind**: global function  
 **Returns**: <code>string</code> - 不校验数字拼写是否正确，只转换大写  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | num | <code>string</code> | 中文数字 |
 
-<a name="xNumber+numberAri2Chn"></a>
+<a name="numberAri2Chn"></a>
 
-### xNumber.numberAri2Chn(num) ⇒ <code>string</code>
+## numberAri2Chn(num) ⇒ <code>string</code>
 阿拉伯数字转中文数字
 
-**Kind**: instance method of [<code>xNumber</code>](#xNumber)  
+**Kind**: global function  
 **Returns**: <code>string</code> - 返回中文数字  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | num | <code>number</code> | 阿拉伯数字，大于零，小于一亿亿。不要使用巨大数字，受V8引擎精度限制，10^16左右就会精度失真。Math.pow(10,16) - 1 === Math.pow(10,16) 为 true |
 
-<a name="xNumber+numberChn2Ari"></a>
+<a name="numberChn2Ari"></a>
 
-### xNumber.numberChn2Ari(num) ⇒ <code>number</code>
+## numberChn2Ari(num) ⇒ <code>number</code>
 中文数字转阿拉伯数字
 
-**Kind**: instance method of [<code>xNumber</code>](#xNumber)  
+**Kind**: global function  
 **Returns**: <code>number</code> - 返回阿拉伯数字, 返回-1表示中文数字非法  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | num | <code>string</code> | 中文数字，大于零，小于一亿亿。不要使用巨大数字。接近或大于一亿亿的时候，V8引擎下的整数会出现精度问题。 |
 
-<a name="xNumber+isLegalChnNum"></a>
+<a name="isLegalChnNum"></a>
 
-### xNumber.isLegalChnNum(num) ⇒ <code>string</code>
+## isLegalChnNum(num) ⇒ <code>string</code>
 检查中文数字合法性，能通过基本容错也为合法
 
-**Kind**: instance method of [<code>xNumber</code>](#xNumber)  
+**Kind**: global function  
 **Returns**: <code>string</code> - true表示合法中文数字  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | num | <code>string</code> | 中文数字，大于零，小于一亿亿 |
 
-<a name="xNumber+numberAri2Roman"></a>
+<a name="numberAri2Roman"></a>
 
-### xNumber.numberAri2Roman(num) ⇒ <code>string</code>
+## numberAri2Roman(num) ⇒ <code>string</code>
 阿拉伯数字转罗马数字
 
-**Kind**: instance method of [<code>xNumber</code>](#xNumber)  
+**Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | num | <code>number</code> | 范围0-3999 |
 
-<a name="xNumber+numberRoman2Ari"></a>
+<a name="numberRoman2Ari"></a>
 
-### xNumber.numberRoman2Ari(s) ⇒ <code>number</code>
+## numberRoman2Ari(s) ⇒ <code>number</code>
 罗马数字转阿拉伯数字
 
-**Kind**: instance method of [<code>xNumber</code>](#xNumber)  
+**Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | s | <code>string</code> | 范围0-3999 |
 
-<a name="xUtil"></a>
+<a name="typeof"></a>
 
-## xUtil
-Utility of xTool
-
-**Kind**: global class  
-
-* [xUtil](#xUtil)
-    * [.typeof(arg)](#xUtil+typeof) ⇒ <code>string</code>
-    * [.is(value, type)](#xUtil+is) ⇒ <code>boolean</code>
-    * [.flattenArray(arg)](#xUtil+flattenArray) ⇒ <code>array</code>
-    * [.distinctArray(arg)](#xUtil+distinctArray) ⇒ <code>array</code>
-    * [.getArgs()](#xUtil+getArgs) ⇒ <code>object</code>
-    * [.range(start, [end])](#xUtil+range) ⇒ <code>array</code>
-
-<a name="xUtil+typeof"></a>
-
-### xUtil.typeof(arg) ⇒ <code>string</code>
+## typeof(arg) ⇒ <code>string</code>
 return the truly type of arg
 
-**Kind**: instance method of [<code>xUtil</code>](#xUtil)  
+**Kind**: global function  
 **Returns**: <code>string</code> - type of arg  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | arg | <code>\*</code> | any type arg |
 
-<a name="xUtil+is"></a>
+<a name="is"></a>
 
-### xUtil.is(value, type) ⇒ <code>boolean</code>
+## is(value, type) ⇒ <code>boolean</code>
 compare the value type with expect type
 
-**Kind**: instance method of [<code>xUtil</code>](#xUtil)  
+**Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | value | <code>\*</code> | value will be test |
 | type | <code>string</code> | expect type |
 
-<a name="xUtil+flattenArray"></a>
+<a name="flattenArray"></a>
 
-### xUtil.flattenArray(arg) ⇒ <code>array</code>
+## flattenArray(arg) ⇒ <code>array</code>
 recursive embeded array to a flat array, and will remove duplicated value
 
-**Kind**: instance method of [<code>xUtil</code>](#xUtil)  
+**Kind**: global function  
 **Returns**: <code>array</code> - return a one dimension array  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | arg | <code>array</code> \| <code>\*</code> | multi dimensions array, other type of arg will return a array warped arg |
 
-<a name="xUtil+distinctArray"></a>
+<a name="distinctArray"></a>
 
-### xUtil.distinctArray(arg) ⇒ <code>array</code>
+## distinctArray(arg) ⇒ <code>array</code>
 remove duplicated value of array
 
-**Kind**: instance method of [<code>xUtil</code>](#xUtil)  
+**Kind**: global function  
 **Returns**: <code>array</code> - return an array with every unquie value  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | arg | <code>array</code> \| <code>\*</code> | array to remopve duplicated value |
 
-<a name="xUtil+getArgs"></a>
+<a name="getArgs"></a>
 
-### xUtil.getArgs() ⇒ <code>object</code>
+## getArgs() ⇒ <code>object</code>
 get node command args
 
-**Kind**: instance method of [<code>xUtil</code>](#xUtil)  
+**Kind**: global function  
 **Returns**: <code>object</code> - - command line: "node xxx.js -x1 y1 -x2 y2", will return {x1:"y1", x2:"y2"}  
-<a name="xUtil+range"></a>
+<a name="range"></a>
 
-### xUtil.range(start, [end]) ⇒ <code>array</code>
+## range(start, [end]) ⇒ <code>array</code>
 generate values array of specified range, number range should be 0 to 2^32
 
-**Kind**: instance method of [<code>xUtil</code>](#xUtil)  
+**Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |
