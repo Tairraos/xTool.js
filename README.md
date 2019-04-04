@@ -21,22 +21,22 @@ Yet another tool package for node
 ## Functions
 
 <dl>
-<dt><a href="#readDir">readDir(root, [setting])</a> ⇒ <code>array</code></dt>
+<dt><a href="#readDir">readDir(root, [setting])</a> => <code>array</code></dt>
 <dd><p>Get file list from a root path with configure</p>
 </dd>
-<dt><a href="#readFile">readFile(file, [encoding])</a> ⇒ <code>string</code></dt>
+<dt><a href="#readFile">readFile(file, [encoding])</a> => <code>string</code></dt>
 <dd><p>Read file content</p>
 </dd>
-<dt><a href="#existFile">existFile(file)</a> ⇒ <code>boolean</code></dt>
+<dt><a href="#existFile">existFile(file)</a> => <code>boolean</code></dt>
 <dd><p>Test file exist or not</p>
 </dd>
-<dt><a href="#existDir">existDir(dir)</a> ⇒ <code>boolean</code></dt>
+<dt><a href="#existDir">existDir(dir)</a> => <code>boolean</code></dt>
 <dd><p>Test dir exist or not</p>
 </dd>
 <dt><a href="#saveFile">saveFile(file, content, [encoding])</a></dt>
 <dd><p>Save content to file</p>
 </dd>
-<dt><a href="#removeFile">removeFile(file)</a> ⇒ <code>boolean</code></dt>
+<dt><a href="#removeFile">removeFile(file)</a> => <code>boolean</code></dt>
 <dd><p>Alias of fs.unlinkSync</p>
 </dd>
 <dt><a href="#scanFile">scanFile(file, callback)</a></dt>
@@ -48,49 +48,49 @@ Yet another tool package for node
 <dt><a href="#replaceFile">replaceFile(file, patten|callback, [replacement])</a></dt>
 <dd><p>replace file content with patten &amp; replacement</p>
 </dd>
-<dt><a href="#decodeHtml">decodeHtml(htmlContent)</a> ⇒ <code>string</code></dt>
+<dt><a href="#decodeHtml">decodeHtml(htmlContent)</a> => <code>string</code></dt>
 <dd><p>transfer &#DDDD; &amp; &#xHHHH; it was. make sure the html page under utf-8;</p>
 </dd>
-<dt><a href="#tolerant">tolerant(num)</a> ⇒ <code>string</code></dt>
+<dt><a href="#tolerant">tolerant(num)</a> => <code>string</code></dt>
 <dd><p>修正中文数字常见的错误，并转小写</p>
 </dd>
-<dt><a href="#numberChnToBig">numberChnToBig(num)</a> ⇒ <code>string</code></dt>
+<dt><a href="#numberChnToBig">numberChnToBig(num)</a> => <code>string</code></dt>
 <dd><p>中文数字小写转大写，“万”，“亿”是不区分大小写的</p>
 </dd>
-<dt><a href="#numberChnToSmall">numberChnToSmall(num)</a> ⇒ <code>string</code></dt>
+<dt><a href="#numberChnToSmall">numberChnToSmall(num)</a> => <code>string</code></dt>
 <dd><p>中文数字小写转大写，“万”，“亿”是不区分大小写的</p>
 </dd>
-<dt><a href="#numberAri2Chn">numberAri2Chn(num)</a> ⇒ <code>string</code></dt>
+<dt><a href="#numberAri2Chn">numberAri2Chn(num)</a> => <code>string</code></dt>
 <dd><p>阿拉伯数字转中文数字</p>
 </dd>
-<dt><a href="#numberChn2Ari">numberChn2Ari(num)</a> ⇒ <code>number</code></dt>
+<dt><a href="#numberChn2Ari">numberChn2Ari(num)</a> => <code>number</code></dt>
 <dd><p>中文数字转阿拉伯数字</p>
 </dd>
-<dt><a href="#isLegalChnNum">isLegalChnNum(num)</a> ⇒ <code>string</code></dt>
+<dt><a href="#isLegalChnNum">isLegalChnNum(num)</a> => <code>string</code></dt>
 <dd><p>检查中文数字合法性，能通过基本容错也为合法</p>
 </dd>
-<dt><a href="#numberAri2Roman">numberAri2Roman(num)</a> ⇒ <code>string</code></dt>
+<dt><a href="#numberAri2Roman">numberAri2Roman(num)</a> => <code>string</code></dt>
 <dd><p>阿拉伯数字转罗马数字</p>
 </dd>
-<dt><a href="#numberRoman2Ari">numberRoman2Ari(s)</a> ⇒ <code>number</code></dt>
+<dt><a href="#numberRoman2Ari">numberRoman2Ari(s)</a> => <code>number</code></dt>
 <dd><p>罗马数字转阿拉伯数字</p>
 </dd>
-<dt><a href="#typeof">typeof(arg)</a> ⇒ <code>string</code></dt>
+<dt><a href="#typeof">typeof(arg)</a> => <code>string</code></dt>
 <dd><p>return the truly type of arg</p>
 </dd>
-<dt><a href="#is">is(value, type)</a> ⇒ <code>boolean</code></dt>
+<dt><a href="#is">is(value, type)</a> => <code>boolean</code></dt>
 <dd><p>compare the value type with expect type</p>
 </dd>
-<dt><a href="#flattenArray">flattenArray(arg)</a> ⇒ <code>array</code></dt>
+<dt><a href="#flattenArray">flattenArray(arg)</a> => <code>array</code></dt>
 <dd><p>recursive embeded array to a flat array, and will remove duplicated value</p>
 </dd>
-<dt><a href="#distinctArray">distinctArray(arg)</a> ⇒ <code>array</code></dt>
+<dt><a href="#distinctArray">distinctArray(arg)</a> => <code>array</code></dt>
 <dd><p>remove duplicated value of array</p>
 </dd>
-<dt><a href="#getArgs">getArgs()</a> ⇒ <code>object</code></dt>
+<dt><a href="#getArgs">getArgs()</a> => <code>object</code></dt>
 <dd><p>get node command args</p>
 </dd>
-<dt><a href="#range">range(start, [end])</a> ⇒ <code>array</code></dt>
+<dt><a href="#range">range(start, [end])</a> => <code>array</code></dt>
 <dd><p>generate values array of specified range, number range should be 0 to 2^32</p>
 </dd>
 </dl>
@@ -121,7 +121,7 @@ Utility of xTool
 **Kind**: global variable  
 <a name="readDir"></a>
 
-## readDir(root, [setting]) ⇒ <code>array</code>
+## readDir(root, [setting]) => <code>array</code>
 Get file list from a root path with configure
 
 **Kind**: global function  
@@ -138,7 +138,7 @@ Get file list from a root path with configure
 
 <a name="readFile"></a>
 
-## readFile(file, [encoding]) ⇒ <code>string</code>
+## readFile(file, [encoding]) => <code>string</code>
 Read file content
 
 **Kind**: global function  
@@ -151,7 +151,7 @@ Read file content
 
 <a name="existFile"></a>
 
-## existFile(file) ⇒ <code>boolean</code>
+## existFile(file) => <code>boolean</code>
 Test file exist or not
 
 **Kind**: global function  
@@ -162,7 +162,7 @@ Test file exist or not
 
 <a name="existDir"></a>
 
-## existDir(dir) ⇒ <code>boolean</code>
+## existDir(dir) => <code>boolean</code>
 Test dir exist or not
 
 **Kind**: global function  
@@ -186,7 +186,7 @@ Save content to file
 
 <a name="removeFile"></a>
 
-## removeFile(file) ⇒ <code>boolean</code>
+## removeFile(file) => <code>boolean</code>
 Alias of fs.unlinkSync
 
 **Kind**: global function  
@@ -235,7 +235,7 @@ replace file content with patten & replacement
 
 <a name="decodeHtml"></a>
 
-## decodeHtml(htmlContent) ⇒ <code>string</code>
+## decodeHtml(htmlContent) => <code>string</code>
 transfer &#DDDD; & &#xHHHH; it was. make sure the html page under utf-8;
 
 **Kind**: global function  
@@ -246,7 +246,7 @@ transfer &#DDDD; & &#xHHHH; it was. make sure the html page under utf-8;
 
 <a name="tolerant"></a>
 
-## tolerant(num) ⇒ <code>string</code>
+## tolerant(num) => <code>string</code>
 修正中文数字常见的错误，并转小写
 
 **Kind**: global function  
@@ -258,7 +258,7 @@ transfer &#DDDD; & &#xHHHH; it was. make sure the html page under utf-8;
 
 <a name="numberChnToBig"></a>
 
-## numberChnToBig(num) ⇒ <code>string</code>
+## numberChnToBig(num) => <code>string</code>
 中文数字小写转大写，“万”，“亿”是不区分大小写的
 
 **Kind**: global function  
@@ -270,7 +270,7 @@ transfer &#DDDD; & &#xHHHH; it was. make sure the html page under utf-8;
 
 <a name="numberChnToSmall"></a>
 
-## numberChnToSmall(num) ⇒ <code>string</code>
+## numberChnToSmall(num) => <code>string</code>
 中文数字小写转大写，“万”，“亿”是不区分大小写的
 
 **Kind**: global function  
@@ -282,7 +282,7 @@ transfer &#DDDD; & &#xHHHH; it was. make sure the html page under utf-8;
 
 <a name="numberAri2Chn"></a>
 
-## numberAri2Chn(num) ⇒ <code>string</code>
+## numberAri2Chn(num) => <code>string</code>
 阿拉伯数字转中文数字
 
 **Kind**: global function  
@@ -294,7 +294,7 @@ transfer &#DDDD; & &#xHHHH; it was. make sure the html page under utf-8;
 
 <a name="numberChn2Ari"></a>
 
-## numberChn2Ari(num) ⇒ <code>number</code>
+## numberChn2Ari(num) => <code>number</code>
 中文数字转阿拉伯数字
 
 **Kind**: global function  
@@ -306,7 +306,7 @@ transfer &#DDDD; & &#xHHHH; it was. make sure the html page under utf-8;
 
 <a name="isLegalChnNum"></a>
 
-## isLegalChnNum(num) ⇒ <code>string</code>
+## isLegalChnNum(num) => <code>string</code>
 检查中文数字合法性，能通过基本容错也为合法
 
 **Kind**: global function  
@@ -318,7 +318,7 @@ transfer &#DDDD; & &#xHHHH; it was. make sure the html page under utf-8;
 
 <a name="numberAri2Roman"></a>
 
-## numberAri2Roman(num) ⇒ <code>string</code>
+## numberAri2Roman(num) => <code>string</code>
 阿拉伯数字转罗马数字
 
 **Kind**: global function  
@@ -329,7 +329,7 @@ transfer &#DDDD; & &#xHHHH; it was. make sure the html page under utf-8;
 
 <a name="numberRoman2Ari"></a>
 
-## numberRoman2Ari(s) ⇒ <code>number</code>
+## numberRoman2Ari(s) => <code>number</code>
 罗马数字转阿拉伯数字
 
 **Kind**: global function  
@@ -340,7 +340,7 @@ transfer &#DDDD; & &#xHHHH; it was. make sure the html page under utf-8;
 
 <a name="typeof"></a>
 
-## typeof(arg) ⇒ <code>string</code>
+## typeof(arg) => <code>string</code>
 return the truly type of arg
 
 **Kind**: global function  
@@ -352,7 +352,7 @@ return the truly type of arg
 
 <a name="is"></a>
 
-## is(value, type) ⇒ <code>boolean</code>
+## is(value, type) => <code>boolean</code>
 compare the value type with expect type
 
 **Kind**: global function  
@@ -364,7 +364,7 @@ compare the value type with expect type
 
 <a name="flattenArray"></a>
 
-## flattenArray(arg) ⇒ <code>array</code>
+## flattenArray(arg) => <code>array</code>
 recursive embeded array to a flat array, and will remove duplicated value
 
 **Kind**: global function  
@@ -376,7 +376,7 @@ recursive embeded array to a flat array, and will remove duplicated value
 
 <a name="distinctArray"></a>
 
-## distinctArray(arg) ⇒ <code>array</code>
+## distinctArray(arg) => <code>array</code>
 remove duplicated value of array
 
 **Kind**: global function  
@@ -388,7 +388,7 @@ remove duplicated value of array
 
 <a name="getArgs"></a>
 
-## getArgs() ⇒ <code>object</code>
+## getArgs() => <code>object</code>
 get node command args
 
 **Kind**: global function  
@@ -406,7 +406,7 @@ get node command args
    }  
 <a name="range"></a>
 
-## range(start, [end]) ⇒ <code>array</code>
+## range(start, [end]) => <code>array</code>
 generate values array of specified range, number range should be 0 to 2^32
 
 **Kind**: global function  

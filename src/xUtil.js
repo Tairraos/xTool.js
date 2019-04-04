@@ -58,11 +58,11 @@ let xUtil = Object.assign(Function(), {
      *         2: "111",
      *         3: "-b=222",
      *         4: "333",
-     *         "5": "-d",
+     *         5: "-d",
      *         "-a": "111",
      *         "-b": "222",
      *         "-d": true
-     *    }
+     *     }
      */
     getArgs() {
         let argArr = [...process.argv.slice(2)],
