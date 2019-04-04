@@ -3,7 +3,6 @@ let fs = require("fs"),
     xFile = require("./src/xFile"),
     xNumber = require("./src/xNumber"),
     xHtml = require("./src/xHtml"),
-    xNetwork = require("./src/xNetwork"),
     xTool = {
         typeof: xUtil.typeof,
         is: xUtil.is,
@@ -28,8 +27,7 @@ let fs = require("fs"),
         isLegalChnNum: xNumber.isLegalChnNum,
         numberAri2Roman: xNumber.numberAri2Roman,
         numberRoman2Ari: xNumber.numberRoman2Ari,
-        decodeHtml: xHtml.decodeHtml,
-        downloadWebFile: xNetwork.downloadWebFile
+        decodeHtml: xHtml.decodeHtml
     };
 
 module.exports = xTool;

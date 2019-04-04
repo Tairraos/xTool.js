@@ -95,24 +95,18 @@ describe('test xUtil.distinctArray', () => {
 describe('test xUtil.getArgs', () => {
     it("test number", () => {
         process.argv.splice(2);
-        expect(xUtil.getArgs()).toEqual({});
-        process.argv.push("-a", "test");
-        expect(xUtil.getArgs()).toEqual({
-            "-a": "test"
-        });
-        process.argv.push("test2");
-        expect(xUtil.getArgs()).toEqual({
-            "-a": "test",
-            "1": "test2"
-        });
-        process.argv.push("-b", "-c", "test3", "test4");
-        expect(xUtil.getArgs()).toEqual({
-            "-a": "test",
-            "1": "test2",
-            "-b": true,
-            "-c": "test3",
-            "2": "test4"
-        });
+        expect(xUtil.getArgs()).toEqual({0:[]});
+        process.argv.push("-a", "111", "-b=222","333", "-d");
+        
+        let utTmp = xUtil.getArgs();
+        expect(utTmp[1]).toEqual("-a");
+        expect(utTmp[2]).toEqual("111");
+        expect(utTmp[3]).toEqual("-b=222");
+        expect(utTmp[4]).toEqual("333");
+        expect(utTmp[5]).toEqual("-d");
+        expect(utTmp["-a"]).toEqual("111");
+        expect(utTmp["-b"]).toEqual("222");
+        expect(utTmp["-d"]).toEqual(true);
     });
 });
 

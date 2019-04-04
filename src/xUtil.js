@@ -51,23 +51,36 @@ let xUtil = Object.assign(Function(), {
 
     /**
      * get node command args
-     * @return {object} - command line: "node xxx.js -x1 y1 -x2 y2", will return {x1:"y1", x2:"y2"}
+     * @return {object} - command line: "node xxx.js -a 111 -b=222 333 -d", will return 
+     *     {
+     *         0: ["-a", "111", "-b=222", "333", "-d"],
+     *         1: "-a",
+     *         2: "111",
+     *         3: "-b=222",
+     *         4: "333",
+     *         "5": "-d",
+     *         "-a": "111",
+     *         "-b": "222",
+     *         "-d": true
+     *    }
      */
     getArgs() {
         let argArr = [...process.argv.slice(2)],
-            args = {},
-            index = 1;
+            [args, index, item] = [{
+                0: [...argArr]
+            }, 1];
 
-        while (argArr.length) {
-            let item = argArr.shift();
+        while (item = argArr.shift()) {
+            args[index++] = item;
+
             if (item.match(/^-/)) {
-                if (argArr.length && argArr[0].match(/^[^-]/)) {
-                    args[item] = argArr.shift();
+                if (item.match(/^(-\w+)="?(.*)"?$/)) {
+                    args[RegExp.$1] = RegExp.$2;
+                } else if (argArr.length && argArr[0].match(/^[^-]/)) {
+                    args[item] = argArr[0];
                 } else {
                     args[item] = true;
                 }
-            } else {
-                args[index++] = item;
             }
         }
         return args;

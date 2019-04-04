@@ -16,8 +16,7 @@ let methodList = [
     ...getFuncList("xUtil"),
     ...getFuncList("xFile"),
     ...getFuncList("xNumber"),
-    ...getFuncList("xHtml"),
-    ...getFuncList("xNetwork")
+    ...getFuncList("xHtml")
 ].map((item) => "        " + item);
 
 xFile.saveFile("index.js", [
@@ -26,7 +25,6 @@ xFile.saveFile("index.js", [
     `    xFile = require("./src/xFile"),`,
     `    xNumber = require("./src/xNumber"),`,
     `    xHtml = require("./src/xHtml"),`,
-    `    xNetwork = require("./src/xNetwork"),`,
     `    xTool = {`,
     methodList.join(",\n"),
     `    };`,

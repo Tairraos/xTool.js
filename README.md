@@ -10,9 +10,6 @@ Yet another tool package for node
 <dt><a href="#xHtml">xHtml</a></dt>
 <dd><p>HTML relative tools of xTool</p>
 </dd>
-<dt><a href="#xNetwork">xNetwork</a></dt>
-<dd><p>Network relative tools of xTool</p>
-</dd>
 <dt><a href="#xNumber">xNumber</a></dt>
 <dd><p>Number relative tools of xTool</p>
 </dd>
@@ -53,9 +50,6 @@ Yet another tool package for node
 </dd>
 <dt><a href="#decodeHtml">decodeHtml(htmlContent)</a> ⇒ <code>string</code></dt>
 <dd><p>transfer &#DDDD; &amp; &#xHHHH; it was. make sure the html page under utf-8;</p>
-</dd>
-<dt><a href="#downloadWebFile">downloadWebFile(url, filename, callback)</a></dt>
-<dd><p>async download file from internet</p>
 </dd>
 <dt><a href="#tolerant">tolerant(num)</a> ⇒ <code>string</code></dt>
 <dd><p>修正中文数字常见的错误，并转小写</p>
@@ -111,12 +105,6 @@ File relative tools of xTool
 
 ## xHtml
 HTML relative tools of xTool
-
-**Kind**: global variable  
-<a name="xNetwork"></a>
-
-## xNetwork
-Network relative tools of xTool
 
 **Kind**: global variable  
 <a name="xNumber"></a>
@@ -255,19 +243,6 @@ transfer &#DDDD; & &#xHHHH; it was. make sure the html page under utf-8;
 | Param | Type | Description |
 | --- | --- | --- |
 | htmlContent | <code>string</code> | included |
-
-<a name="downloadWebFile"></a>
-
-## downloadWebFile(url, filename, callback)
-async download file from internet
-
-**Kind**: global function  
-
-| Param | Type |
-| --- | --- |
-| url | <code>string</code> | 
-| filename | <code>string</code> | 
-| callback | <code>function</code> | 
 
 <a name="tolerant"></a>
 
@@ -417,7 +392,18 @@ remove duplicated value of array
 get node command args
 
 **Kind**: global function  
-**Returns**: <code>object</code> - - command line: "node xxx.js -x1 y1 -x2 y2", will return {x1:"y1", x2:"y2"}  
+**Returns**: <code>object</code> - - command line: "node xxx.js -a 111 -b=222 333 -d", will return 
+    {
+        0: ["-a", "111", "-b=222", "333", "-d"],
+        1: "-a",
+        2: "111",
+        3: "-b=222",
+        4: "333",
+        "5": "-d",
+        "-a": "111",
+        "-b": "222",
+        "-d": true
+   }  
 <a name="range"></a>
 
 ## range(start, [end]) ⇒ <code>array</code>
