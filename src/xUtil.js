@@ -27,17 +27,17 @@ let xUtil = Object.assign(Function(), {
      * @return {array} return a one dimension array
      */
     flattenArray(arg) {
-        let pattenArray = [],
+        let patternArray = [],
             recursive = (param) => {
                 if (xUtil.typeof(param) === "array") {
                     param.forEach((subParam) =>
-                        (xUtil.is(subParam, "array")) ? recursive(subParam) : pattenArray.push(subParam));
+                        (xUtil.is(subParam, "array")) ? recursive(subParam) : patternArray.push(subParam));
                 } else {
-                    pattenArray.push(param);
+                    patternArray.push(param);
                 }
             };
         recursive(arg);
-        return pattenArray;
+        return patternArray;
     },
 
     /**

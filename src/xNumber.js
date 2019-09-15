@@ -2,28 +2,28 @@
  * Number relative tools of xTool
  */
 let xNumber = Object.assign(Function(), {
-    tolerantPatten: [
+    tolerantPattern: [
         "零+|^$,零,^零(.)|(.)零$,$1$2,^一十,十,百零?十,百一十,百([一二三四五六七八九])([^十]|$),百零$1$2,千([一二三四五六七八九])([^百]|$),千零$1$2",
         "(万|亿)([一二三四五六七八九])([^千]|$),$1零$2$3,(十|百|千)(万|亿)([^零万亿]),$1$2零$3,亿万,亿"
     ].join(),
-    toBigPatten: "一,壹,二,贰,三,叁,四,肆,五,伍,六,陆,七,柒,八,捌,九,玖,十,拾,百,佰,千,仟",
-    toSmallPatten: "壹,一,贰|两,二,叁,三,肆,四,伍,五,陆,六,柒,七,捌,八,玖,九,拾,十,廿,二十,卅,三十,卌,四十,佰,百,仟,千,萬,万,億,亿",
-    toChnNumPatten: "1,一,2,二,3,三,4,四,5,五,6,六,7,七,8,八,9,九,0,",
-    toAriNumPatten: "零,,一,1,二,2,三,3,四,4,五,5,六,6,七,7,八,8,九,9,^十,1十",
-    matchChnNumPatten: "^(?:([^万亿]*)万)?(?:([^万亿]*)亿)?(?:([^万亿]*)万)?(?:([^万亿]*))?$",
-    matchChnNumSimplePatten: "^(?:([^万亿]*)万)?(?:([^万亿]*))?$",
-    matchChnNumSectionPatten: "^(?:(\\d)千)?(?:(\\d)百)?(?:(\\d)十)?(\\d)?$",
+    toBigPattern: "一,壹,二,贰,三,叁,四,肆,五,伍,六,陆,七,柒,八,捌,九,玖,十,拾,百,佰,千,仟",
+    toSmallPattern: "壹,一,贰|两,二,叁,三,肆,四,伍,五,陆,六,柒,七,捌,八,玖,九,拾,十,廿,二十,卅,三十,卌,四十,佰,百,仟,千,萬,万,億,亿",
+    toChnNumPattern: "1,一,2,二,3,三,4,四,5,五,6,六,7,七,8,八,9,九,0,",
+    toAriNumPattern: "零,,一,1,二,2,三,3,四,4,五,5,六,6,七,7,八,8,九,9,^十,1十",
+    matchChnNumPattern: "^(?:([^万亿]*)万)?(?:([^万亿]*)亿)?(?:([^万亿]*)万)?(?:([^万亿]*))?$",
+    matchChnNumSimplePattern: "^(?:([^万亿]*)万)?(?:([^万亿]*))?$",
+    matchChnNumSectionPattern: "^(?:(\\d)千)?(?:(\\d)百)?(?:(\\d)十)?(\\d)?$",
 
     /**
-     * 用字符串描述一堆正则patten来刷洗字符串
+     * 用字符串描述一堆正则pattern来刷洗字符串
      * "零,,一,1,^十,1十" 表示 replace(/零/g,"").replace(/一/g,"1")，replace(/^十/g,"1十")
      * @param {string} data 
-     * @param {string} patten 
+     * @param {string} pattern 
      * @return {string}
      * @private
      */
-    _washData(data, patten) {
-        let p = patten.split(",");
+    _washData(data, pattern) {
+        let p = pattern.split(",");
         while (p.length) data = data.replace(RegExp(p.shift(), "g"), p.shift());
         return data;
     },
@@ -35,7 +35,7 @@ let xNumber = Object.assign(Function(), {
      */
     tolerant(num) {
         num = xNumber.numberChnToSmall(num);
-        return xNumber._washData(num, xNumber.tolerantPatten);
+        return xNumber._washData(num, xNumber.tolerantPattern);
     },
 
     /**
@@ -44,7 +44,7 @@ let xNumber = Object.assign(Function(), {
      * @return {string} 不校验数字拼写是否正确，只转换大写
      */
     numberChnToBig(num) {
-        return xNumber._washData(num, xNumber.toBigPatten);
+        return xNumber._washData(num, xNumber.toBigPattern);
     },
 
     /**
@@ -53,7 +53,7 @@ let xNumber = Object.assign(Function(), {
      * @return {string} 不校验数字拼写是否正确，只转换大写
      */
     numberChnToSmall(num) {
-        return xNumber._washData(num, xNumber.toSmallPatten);
+        return xNumber._washData(num, xNumber.toSmallPattern);
     },
 
     /**
@@ -63,7 +63,7 @@ let xNumber = Object.assign(Function(), {
      */
     numberAri2Chn(num) {
         let t = ("0000" + num).replace(/.{0,4}((.{4})+)$/, "$1").match(/.{4}/g).map((x) => {
-            x = x.split("").map((y) => xNumber._washData(y, xNumber.toChnNumPatten));
+            x = x.split("").map((y) => xNumber._washData(y, xNumber.toChnNumPattern));
             return [x[0] ? x[0] + "千" : "零", x[1] ? x[1] + "百" : "零", x[2] ? x[2] + "十" : "零", x[3]].join("").replace(/零+$/, "");
         });
         return xNumber.tolerant(t.reduceRight((x, y, i) => y + "万亿万亿万" [t.length - i - 2] + x));
@@ -79,10 +79,10 @@ let xNumber = Object.assign(Function(), {
         //     m = {};
         // while (d.length) m[d.shift()] = +d.shift();
         if (xNumber.isLegalChnNum(num)) {
-            num = xNumber._washData(xNumber.tolerant(num), xNumber.toAriNumPatten);
-            let secList = num.match(RegExp(/亿/.test(num) ? xNumber.matchChnNumPatten : xNumber.matchChnNumSimplePatten)).slice(1);
+            num = xNumber._washData(xNumber.tolerant(num), xNumber.toAriNumPattern);
+            let secList = num.match(RegExp(/亿/.test(num) ? xNumber.matchChnNumPattern : xNumber.matchChnNumSimplePattern)).slice(1);
             secList = secList.map((i) => i ? i : "0").map((sec) => {
-                sec = sec.match(RegExp(xNumber.matchChnNumSectionPatten));
+                sec = sec.match(RegExp(xNumber.matchChnNumSectionPattern));
                 return sec.slice(1).map((i) => i ? +i : 0).reduceRight((x, y, i) => x + y * Math.pow(10, 3 - i));
             });
             return secList.map((i) => +i).reduceRight((x, y, i) => x + y * Math.pow(10000, secList.length - i - 1));
@@ -97,10 +97,10 @@ let xNumber = Object.assign(Function(), {
      */
     isLegalChnNum(num) {
         //replace 一二三四 to  1,2,3,4
-        num = xNumber._washData(xNumber.tolerant("" + num), xNumber.toAriNumPatten);
-        let secs = num.match(RegExp(xNumber.matchChnNumPatten));
+        num = xNumber._washData(xNumber.tolerant("" + num), xNumber.toAriNumPattern);
+        let secs = num.match(RegExp(xNumber.matchChnNumPattern));
         return secs && secs.slice(1).map((i) => i ? i : "0")
-            .map((item) => !!item.match(RegExp(xNumber.matchChnNumSectionPatten))).reduce((x, y) => x && y);
+            .map((item) => !!item.match(RegExp(xNumber.matchChnNumSectionPattern))).reduce((x, y) => x && y);
     },
 
     /**

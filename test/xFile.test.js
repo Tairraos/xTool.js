@@ -1,79 +1,79 @@
 const fs = require("fs"),
     xFile = require('../src/xFile');
 
-describe('test xFile.resolvePatten', () => {
+describe('test xFile.resolvePattern', () => {
     it("test illegal params will be a empty matched regexp", () => {
-        expect(xFile._resolvePatten([])).toEqual([]);
-        expect(xFile._resolvePatten()).toEqual([/$.^/]);
-        expect(xFile._resolvePatten({})).toEqual([/$.^/]);
+        expect(xFile._resolvePattern([])).toEqual([]);
+        expect(xFile._resolvePattern()).toEqual([/$.^/]);
+        expect(xFile._resolvePattern({})).toEqual([/$.^/]);
     });
 
     it("test number", () => {
-        expect(xFile._resolvePatten(1)).toEqual([/^1$/]);
+        expect(xFile._resolvePattern(1)).toEqual([/^1$/]);
     });
 
     it("test string", () => {
-        expect(xFile._resolvePatten("file")).toEqual([/^file$/]);
-        expect(xFile._resolvePatten("file.txt")).toEqual([/^file\.txt$/]);
+        expect(xFile._resolvePattern("file")).toEqual([/^file$/]);
+        expect(xFile._resolvePattern("file.txt")).toEqual([/^file\.txt$/]);
     });
 
     it("test wildcard", () => {
-        expect(xFile._resolvePatten("*.txt")).toEqual([/^.+\.txt$/]);
-        expect(xFile._resolvePatten("*.*")).toEqual([/^.+\..+$/]);
-        expect(xFile._resolvePatten("test?.*")).toEqual([/^test.\..+$/]);
-        expect(xFile._resolvePatten("*.*")).toEqual([/^.+\..+$/]);
+        expect(xFile._resolvePattern("*.txt")).toEqual([/^.+\.txt$/]);
+        expect(xFile._resolvePattern("*.*")).toEqual([/^.+\..+$/]);
+        expect(xFile._resolvePattern("test?.*")).toEqual([/^test.\..+$/]);
+        expect(xFile._resolvePattern("*.*")).toEqual([/^.+\..+$/]);
     });
 
     it("test directory", () => {
-        expect(xFile._resolvePatten("/a/b/")).toEqual([/\/a\/b\//]);
-        expect(xFile._resolvePatten("a.b/")).toEqual([/a\.b\//]);
+        expect(xFile._resolvePattern("/a/b/")).toEqual([/\/a\/b\//]);
+        expect(xFile._resolvePattern("a.b/")).toEqual([/a\.b\//]);
     });
 
     it("test regexp", () => {
-        expect(xFile._resolvePatten(/test\.file/)).toEqual([/test\.file/]);
+        expect(xFile._resolvePattern(/test\.file/)).toEqual([/test\.file/]);
     });
 
     it("test array", () => {
-        expect(xFile._resolvePatten([1, "file.txt", "*.txt", /test\.file/])).toEqual([/^1$/, /^file\.txt$/, /^.+\.txt$/, /test\.file/]);
+        expect(xFile._resolvePattern([1, "file.txt", "*.txt", /test\.file/])).toEqual([/^1$/, /^file\.txt$/, /^.+\.txt$/, /test\.file/]);
     });
 
     it("test recursive array", () => {
-        expect(xFile._resolvePatten([1, "file.txt", ["*.txt", /test\.file/]])).toEqual([/^1$/, /^file\.txt$/, /^.+\.txt$/, /test\.file/]);
+        expect(xFile._resolvePattern([1, "file.txt", ["*.txt", /test\.file/]])).toEqual([/^1$/, /^file\.txt$/, /^.+\.txt$/, /test\.file/]);
     });
 
     it("test duplicated item array", () => {
-        expect(xFile._resolvePatten(["*.*", "*.*"])).toEqual([/^.+\..+$/]);
+        expect(xFile._resolvePattern(["*.*", "*.*"])).toEqual([/^.+\..+$/]);
     });
 });
 
-describe('test xFile.pattenMatcher', () => {
+describe('test xFile.patternMatcher', () => {
     it("test unresolved match", () => {
-        expect(xFile._pattenMatcher("testFileName.txt", "*.*")).toBeTruthy();
-        expect(xFile._pattenMatcher("testFileName.txt", ["*.*"])).toBeFalsy();
+        expect(xFile._patternMatcher("testFileName.txt", "*.*")).toBeTruthy();
+        expect(xFile._patternMatcher("testFileName.txt", ["*.*"])).toBeFalsy();
     });
 
     it("test file match", () => {
-        expect(xFile._pattenMatcher("testFileName.txt", xFile._resolvePatten("*.*"))).toBeTruthy();
-        expect(xFile._pattenMatcher("testFileName.txt", xFile._resolvePatten("*.txt"))).toBeTruthy();
-        expect(xFile._pattenMatcher("testFileName.txt", xFile._resolvePatten("test*.txt"))).toBeTruthy();
-        expect(xFile._pattenMatcher("testFileName.txt", xFile._resolvePatten("testFileName.txt"))).toBeTruthy();
-        expect(xFile._pattenMatcher("testFileName5.txt", xFile._resolvePatten("testFileName?.txt"))).toBeTruthy();
+        expect(xFile._patternMatcher("testFileName.txt", xFile._resolvePattern("*.*"))).toBeTruthy();
+        expect(xFile._patternMatcher("testFileName.txt", xFile._resolvePattern("*.txt"))).toBeTruthy();
+        expect(xFile._patternMatcher("testFileName.txt", xFile._resolvePattern("test*.txt"))).toBeTruthy();
+        expect(xFile._patternMatcher("testFileName.txt", xFile._resolvePattern("testFileName.txt"))).toBeTruthy();
+        expect(xFile._patternMatcher("testFileName5.txt", xFile._resolvePattern("testFileName?.txt"))).toBeTruthy();
     });
 
     it("test file unmatch", () => {
-        expect(xFile._pattenMatcher("testFileName.txt", xFile._resolvePatten("*.js"))).toBeFalsy();
-        expect(xFile._pattenMatcher("testFileName.txt", xFile._resolvePatten("*.txtt"))).toBeFalsy();
-        expect(xFile._pattenMatcher("testFileName5.txt", xFile._resolvePatten("testFileName??.txt"))).toBeFalsy();
-        expect(xFile._pattenMatcher("testFileName.", xFile._resolvePatten("*.*"))).toBeFalsy();
+        expect(xFile._patternMatcher("testFileName.txt", xFile._resolvePattern("*.js"))).toBeFalsy();
+        expect(xFile._patternMatcher("testFileName.txt", xFile._resolvePattern("*.txtt"))).toBeFalsy();
+        expect(xFile._patternMatcher("testFileName5.txt", xFile._resolvePattern("testFileName??.txt"))).toBeFalsy();
+        expect(xFile._patternMatcher("testFileName.", xFile._resolvePattern("*.*"))).toBeFalsy();
     });
 
     it("test path match", () => {
-        expect(xFile._pattenMatcher("/test/path/to/file.txt", xFile._resolvePatten("to/"))).toBeTruthy();
-        expect(xFile._pattenMatcher("/test/path/to/file.txt", xFile._resolvePatten("/to/"))).toBeTruthy();
-        expect(xFile._pattenMatcher("/test/path/to/file.txt", xFile._resolvePatten("to"))).toBeFalsy();
-        expect(xFile._pattenMatcher("/test/path/to/file.txt", xFile._resolvePatten(["to", "to/"]))).toBeTruthy();
-        expect(xFile._pattenMatcher("/test/path/to/file.txt", xFile._resolvePatten("path/to/"))).toBeTruthy();
-        expect(xFile._pattenMatcher("/test/path/to/file.txt", xFile._resolvePatten("to/file.txt"))).toBeTruthy();
+        expect(xFile._patternMatcher("/test/path/to/file.txt", xFile._resolvePattern("to/"))).toBeTruthy();
+        expect(xFile._patternMatcher("/test/path/to/file.txt", xFile._resolvePattern("/to/"))).toBeTruthy();
+        expect(xFile._patternMatcher("/test/path/to/file.txt", xFile._resolvePattern("to"))).toBeFalsy();
+        expect(xFile._patternMatcher("/test/path/to/file.txt", xFile._resolvePattern(["to", "to/"]))).toBeTruthy();
+        expect(xFile._patternMatcher("/test/path/to/file.txt", xFile._resolvePattern("path/to/"))).toBeTruthy();
+        expect(xFile._patternMatcher("/test/path/to/file.txt", xFile._resolvePattern("to/file.txt"))).toBeTruthy();
     });
 });
 

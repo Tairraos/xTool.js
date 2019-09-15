@@ -7,20 +7,20 @@ let fs = require('fs'),
  */
 let xFile = Object.assign(Function(), {
     /**
-     * Resolve patten, transfer wildcard patten to regexp format
+     * Resolve pattern, transfer wildcard pattern to regexp format
      * @private
-     * @param {(string|regexp|array)} patten
-     * @return {array} will return an array of patten
+     * @param {(string|regexp|array)} pattern
+     * @return {array} will return an array of pattern
      */
-    _resolvePatten(patten) {
-        return xUtil.distinctArray(xUtil.flattenArray(patten)).map((item) => {
+    _resolvePattern(pattern) {
+        return xUtil.distinctArray(xUtil.flattenArray(pattern)).map((item) => {
             switch (xUtil.typeof(item)) {
                 case "number":
                     item = item.toString();
                 case "string":
                     let isFile = !item.match(/\//),
-                        basePatten = (isFile ? "^" : "") + item.replace(/\./g, "\\.").replace(/\*/g, ".+").replace(/\?/g, ".") + (isFile ? "$" : "");
-                    return item !== "" ? RegExp(basePatten) : /$.^/;
+                        basePattern = (isFile ? "^" : "") + item.replace(/\./g, "\\.").replace(/\*/g, ".+").replace(/\?/g, ".") + (isFile ? "$" : "");
+                    return item !== "" ? RegExp(basePattern) : /$.^/;
                 case "regexp":
                     return item;
                 default:
@@ -30,23 +30,23 @@ let xFile = Object.assign(Function(), {
     },
 
     /**
-     * Test item, does the item match at least one patten of list.
+     * Test item, does the item match at least one pattern of list.
      * @private
      * @param {string} item - item of directory list, file or sub-directory
-     * @param {array} pattenList - patten array
+     * @param {array} patternList - pattern array
      * @param {boolean} [isDir] - is the item is a directory
      * @return {boolean}
      */
-    _pattenMatcher(item, pattenList, isDir) {
+    _patternMatcher(item, patternList, isDir) {
         let matched = false,
             fileName = isDir ? "" : path.basename(item),
             filePath = isDir ? item + "/" : item;
-        if (!xUtil.is(pattenList, "array")) {
-            pattenList = xFile._resolvePatten(pattenList);
+        if (!xUtil.is(patternList, "array")) {
+            patternList = xFile._resolvePattern(patternList);
         }
-        pattenList.forEach((patten) => {
-            if (xUtil.is(patten, "regexp")) {
-                matched = matched || patten.test(filePath) || patten.test(fileName);
+        patternList.forEach((pattern) => {
+            if (xUtil.is(pattern, "regexp")) {
+                matched = matched || pattern.test(filePath) || pattern.test(fileName);
             }
         });
         return matched;
@@ -55,11 +55,11 @@ let xFile = Object.assign(Function(), {
     /**
      * Get file list from a root path with configure
      * @param {string} root - file root path
-     * @param {(object|string)} [setting] - optional, if only one find patten, can be simplify as a string
+     * @param {(object|string)} [setting] - optional, if only one find pattern, can be simplify as a string
      * @param {boolean} [setting.absolute] - return absolute path or path relative from root. [default is false]
      * @param {boolean} [setting.recursive] - recursive to sub directory. [default is false]
-     * @param {(string|regexp|array)} [setting.find] - provide human patten or human patten list to define filename matcher. [default is "*"]
-     * @param {(string|regexp|array)} [setting.ignore] - provide human patten or human patten list to define which filename will be ignored. [default is none]
+     * @param {(string|regexp|array)} [setting.find] - provide human pattern or human pattern list to define filename matcher. [default is "*"]
+     * @param {(string|regexp|array)} [setting.ignore] - provide human pattern or human pattern list to define which filename will be ignored. [default is none]
      * @return {array} list of file with absolute/relative path
      */
     readDir(root, setting) {
@@ -68,8 +68,8 @@ let xFile = Object.assign(Function(), {
         if (xUtil.is(setting, "string")) setting = {
             find: setting
         };
-        let findPattenList = xFile._resolvePatten(setting.find || "*"),
-            ignorePattenList = xFile._resolvePatten(setting.ignore || ""),
+        let findPatternList = xFile._resolvePattern(setting.find || "*"),
+            ignorePatternList = xFile._resolvePattern(setting.ignore || ""),
             isAbsolute = !!setting.absolute,
             isRecursive = !!setting.recursive,
             fileArray = [],
@@ -80,8 +80,8 @@ let xFile = Object.assign(Function(), {
                     var itemAbsolute = path.join(seekPath, item),
                         itemRelative = itemAbsolute.replace(rootPath, ""),
                         isDir = fs.statSync(itemAbsolute).isDirectory();
-                    if (!xFile._pattenMatcher(itemRelative, ignorePattenList, isDir)) {
-                        if (!isDir && xFile._pattenMatcher(itemRelative, findPattenList, isDir)) {
+                    if (!xFile._patternMatcher(itemRelative, ignorePatternList, isDir)) {
+                        if (!isDir && xFile._patternMatcher(itemRelative, findPatternList, isDir)) {
                             fileArray.push(isAbsolute ? itemAbsolute : itemRelative);
                         } else if (isDir && isRecursive) {
                             recursive(itemAbsolute);
@@ -186,13 +186,13 @@ let xFile = Object.assign(Function(), {
     },
 
     /**
-     * replace file content with patten & replacement
+     * replace file content with pattern & replacement
      * @param {string} file - path to file
-     * @param {(string|regexp|function)} patten|callback -  
-     * @param {string} [replacement] - if patten provided, replacement must provide, if patten is regexp, replacement can use the captured value by $1, $2, etc.
+     * @param {(string|regexp|function)} pattern|callback -  
+     * @param {string} [replacement] - if pattern provided, replacement must provide, if pattern is regexp, replacement can use the captured value by $1, $2, etc.
      */
-    replaceFile(file, patten, replacement) {
-        xFile.saveFile(file, xFile.readFile(file).replace(patten, replacement));
+    replaceFile(file, pattern, replacement) {
+        xFile.saveFile(file, xFile.readFile(file).replace(pattern, replacement));
     }
 
 });

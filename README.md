@@ -45,8 +45,8 @@ Yet another tool package for node
 <dt><a href="#scanListFile">scanListFile(list, callback)</a></dt>
 <dd><p>scan all file in list by line, and do callback to content of each line</p>
 </dd>
-<dt><a href="#replaceFile">replaceFile(file, patten|callback, [replacement])</a></dt>
-<dd><p>replace file content with patten &amp; replacement</p>
+<dt><a href="#replaceFile">replaceFile(file, pattern|callback, [replacement])</a></dt>
+<dd><p>replace file content with pattern &amp; replacement</p>
 </dd>
 <dt><a href="#decodeHtml">decodeHtml(htmlContent)</a> => <code>string</code></dt>
 <dd><p>transfer &#DDDD; &amp; &#xHHHH; it was. make sure the html page under utf-8;</p>
@@ -130,11 +130,11 @@ Get file list from a root path with configure
 | Param | Type | Description |
 | --- | --- | --- |
 | root | <code>string</code> | file root path |
-| [setting] | <code>object</code> \| <code>string</code> | optional, if only one find patten, can be simplify as a string |
+| [setting] | <code>object</code> \| <code>string</code> | optional, if only one find pattern, can be simplify as a string |
 | [setting.absolute] | <code>boolean</code> | return absolute path or path relative from root. [default is false] |
 | [setting.recursive] | <code>boolean</code> | recursive to sub directory. [default is false] |
-| [setting.find] | <code>string</code> \| <code>regexp</code> \| <code>array</code> | provide human patten or human patten list to define filename matcher. [default is "*"] |
-| [setting.ignore] | <code>string</code> \| <code>regexp</code> \| <code>array</code> | provide human patten or human patten list to define which filename will be ignored. [default is none] |
+| [setting.find] | <code>string</code> \| <code>regexp</code> \| <code>array</code> | provide human pattern or human pattern list to define filename matcher. [default is "*"] |
+| [setting.ignore] | <code>string</code> \| <code>regexp</code> \| <code>array</code> | provide human pattern or human pattern list to define which filename will be ignored. [default is none] |
 
 <a name="readFile"></a>
 
@@ -222,16 +222,16 @@ scan all file in list by line, and do callback to content of each line
 
 <a name="replaceFile"></a>
 
-## replaceFile(file, patten|callback, [replacement])
-replace file content with patten & replacement
+## replaceFile(file, pattern|callback, [replacement])
+replace file content with pattern & replacement
 
 **Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | file | <code>string</code> | path to file |
-| patten|callback | <code>string</code> \| <code>regexp</code> \| <code>function</code> | - |
-| [replacement] | <code>string</code> | if patten provided, replacement must provide, if patten is regexp, replacement can use the captured value by $1, $2, etc. |
+| pattern|callback | <code>string</code> \| <code>regexp</code> \| <code>function</code> | - |
+| [replacement] | <code>string</code> | if pattern provided, replacement must provide, if pattern is regexp, replacement can use the captured value by $1, $2, etc. |
 
 <a name="decodeHtml"></a>
 
