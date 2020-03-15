@@ -19,7 +19,8 @@ let xFile = Object.assign(Function(), {
                     item = item.toString();
                 case "string":
                     let isFile = !item.match(/\//),
-                        basePattern = (isFile ? "^" : "") + item.replace(/\./g, "\\.").replace(/\*/g, ".+").replace(/\?/g, ".") + (isFile ? "$" : "");
+                        basePattern = (isFile ? "^" : "") + item.replace(/\./g, "\\.").replace(/\*/g, ".+").replace(/\?/g, ".") + (isFile ?
+                            "$" : "");
                     return item !== "" ? RegExp(basePattern) : /$.^/;
                 case "regexp":
                     return item;
@@ -73,7 +74,8 @@ let xFile = Object.assign(Function(), {
             isAbsolute = !!setting.absolute,
             isRecursive = !!setting.recursive,
             fileArray = [],
-            rootPath = (path.isAbsolute(root) ? root : path.join(process.cwd(), root)) + path.sep,
+            tempPath = path.isAbsolute(root) ? root : path.join(process.cwd(), path.normalize(root)),
+            rootPath = path.dirname(tempPath) + path.sep + path.basename(tempPath) + path.sep,
             recursive = (seekPath) => {
                 let seekList = fs.readdirSync(seekPath);
                 seekList.forEach((item) => {
@@ -87,10 +89,10 @@ let xFile = Object.assign(Function(), {
                             recursive(itemAbsolute);
                         }
                     }
-                    ``
                 });
             };
         recursive(rootPath);
+
         return xUtil.distinctArray(fileArray);
     },
 

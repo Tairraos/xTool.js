@@ -1,6 +1,6 @@
 {
   "name": "xtool.js",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Yet another tool package for node.",
   "main": "index.js",
   "repository": "https://github.com/Tairraos/xTool.js.git",
@@ -10,7 +10,7 @@
     "build": "node buildIndex.js"
   },
   "devDependencies": {
-    "jest": "^24.1.0"
+    "jest": "^24.9.0"
   },
   "jest": {
     "collectCoverage": true,
@@ -20,6 +20,5 @@
       "text",
       "text-summary"
     ]
-  },
-  "dependencies": {}
+  }
 }
