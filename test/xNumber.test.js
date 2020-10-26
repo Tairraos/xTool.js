@@ -147,6 +147,8 @@ describe('test xNumber', () => {
         expect(xNumber.isLegalChnNum("一千零一十亿零一万一千")).toBeTruthy();
         expect(xNumber.isLegalChnNum("一万亿零一万一千")).toBeTruthy();
         expect(xNumber.isLegalChnNum("一万万万")).toBeFalsy();
+        expect(xNumber.isLegalChnNum("abc")).toBeFalsy();
+        expect(xNumber.isLegalChnNum("1")).toBeFalsy();
     });
 
     it("test numberAri2Roman", () => {

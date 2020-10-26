@@ -24,7 +24,7 @@ let xNumber = Object.assign(Function(), {
      */
     _washData(data, pattern) {
         let p = pattern.split(",");
-        while (p.length) data = data.replace(RegExp(p.shift(), "g"), p.shift());
+        while (p.length) data = String(data).replace(RegExp(p.shift(), "g"), p.shift());
         return data;
     },
 
@@ -66,7 +66,7 @@ let xNumber = Object.assign(Function(), {
             x = x.split("").map((y) => xNumber._washData(y, xNumber.toChnNumPattern));
             return [x[0] ? x[0] + "千" : "零", x[1] ? x[1] + "百" : "零", x[2] ? x[2] + "十" : "零", x[3]].join("").replace(/零+$/, "");
         });
-        return xNumber.tolerant(t.reduceRight((x, y, i) => y + "万亿万亿万" [t.length - i - 2] + x));
+        return xNumber.tolerant(t.reduceRight((x, y, i) => y + ("万亿万亿万")[t.length - i - 2] + x));
     },
 
     /**
@@ -97,7 +97,7 @@ let xNumber = Object.assign(Function(), {
      */
     isLegalChnNum(num) {
         //replace 一二三四 to  1,2,3,4
-        num = xNumber._washData(xNumber.tolerant("" + num), xNumber.toAriNumPattern);
+        num = xNumber._washData(xNumber.tolerant(num), xNumber.toAriNumPattern);
         let secs = num.match(RegExp(xNumber.matchChnNumPattern));
         return secs && secs.slice(1).map((i) => i ? i : "0")
             .map((item) => !!item.match(RegExp(xNumber.matchChnNumSectionPattern))).reduce((x, y) => x && y);
@@ -142,3 +142,4 @@ let xNumber = Object.assign(Function(), {
 });
 
 module.exports = xNumber;
+xNumber.isLegalChnNum("1");
