@@ -4,7 +4,7 @@
 let xNumber = Object.assign(Function(), {
     tolerantPattern: [
         "零+|^$,零,^零(.)|(.)零$,$1$2,^一十,十,百零?十,百一十,百([一二三四五六七八九])([^十]|$),百零$1$2,千([一二三四五六七八九])([^百]|$),千零$1$2",
-        "(万|亿)([一二三四五六七八九])([^千]|$),$1零$2$3,(十|百|千)(万|亿)([^零万亿]),$1$2零$3,亿万,亿"
+        "(万|亿)([一二三四五六七八九])([^千]|$),$1零$2$3,([十百千])(万|亿)([^零万亿]),$1$2零$3,亿万,亿,([千万亿])零([万千百十]),$1零一$2"
     ].join(),
     toBigPattern: "一,壹,二,贰,三,叁,四,肆,五,伍,六,陆,七,柒,八,捌,九,玖,十,拾,百,佰,千,仟",
     toSmallPattern: "壹,一,贰|两,二,叁,三,肆,四,伍,五,陆,六,柒,七,捌,八,玖,九,拾,十,廿,二十,卅,三十,卌,四十,佰,百,仟,千,萬,万,億,亿",
@@ -96,8 +96,8 @@ let xNumber = Object.assign(Function(), {
      * @return {string} true表示合法中文数字
      */
     isLegalChnNum(num) {
-        //replace 一二三四 to  1,2,3,4
-        num = xNumber._washData(xNumber.tolerant(num), xNumber.toAriNumPattern);
+        if (String(num).match(/[\d\w]/)) return false;
+        num = xNumber._washData(xNumber.tolerant(num), xNumber.toAriNumPattern); //replace 一二三四 to  1,2,3,4
         let secs = num.match(RegExp(xNumber.matchChnNumPattern));
         return secs && secs.slice(1).map((i) => i ? i : "0")
             .map((item) => !!item.match(RegExp(xNumber.matchChnNumSectionPattern))).reduce((x, y) => x && y);
@@ -142,4 +142,3 @@ let xNumber = Object.assign(Function(), {
 });
 
 module.exports = xNumber;
-xNumber.isLegalChnNum("1");
