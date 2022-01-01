@@ -1,7 +1,7 @@
 <a name="xtool"></a>
 
 ## xtool
-Yet another tool package for node
+Enchance file, number feature of node
 
 <dl>
 <dt><a href="#xFile">xFile</a></dt>
@@ -21,6 +21,9 @@ Yet another tool package for node
 ## Functions
 
 <dl>
+<dt><a href="#prepareDir">prepareDir(dir)</a></dt>
+<dd><p>Prepare directory, will create the full path if not exist</p>
+</dd>
 <dt><a href="#readDir">readDir(root, [setting])</a> => <code>array</code></dt>
 <dd><p>Get file list from a root path with configure</p>
 </dd>
@@ -117,6 +120,18 @@ Number relative tools of xTool
 
 ## xUtil
 Utility of xTool
+
+**Kind**: global variable  
+<a name="prepareDir"></a>
+
+## prepareDir(dir)
+Enchance file, number feature of node
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| dir | <code>string</code> | the path want to prepared |
 
 **Kind**: global variable  
 <a name="readDir"></a>
