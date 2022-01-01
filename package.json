@@ -1,7 +1,7 @@
 {
   "name": "xtool.js",
-  "version": "1.2.0",
-  "description": "Yet another tool package for node.",
+  "version": "1.2.1",
+  "description": "Enchance file, number feature of node.",
   "main": "index.js",
   "repository": "https://github.com/Tairraos/xTool.js.git",
   "author": "xiaol.tao@gmail.com",

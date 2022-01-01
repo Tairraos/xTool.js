@@ -54,6 +54,20 @@ let xFile = Object.assign(Function(), {
     },
 
     /**
+     * Prepare directory, will create the full path if not exist
+     * @param {string} dir 
+     */
+    prepareDir(dir) {
+        if (xFile.existDir(dir)) {
+            return;
+        }
+        if (!xFile.existDir(path.dirname(dir))) {
+            xFile.prepareDir(path.dirname(dir))
+        };
+        fs.mkdirSync(dir);
+    },
+
+    /**
      * Get file list from a root path with configure
      * @param {string} root - file root path
      * @param {(object|string)} [setting] - optional, if only one find pattern, can be simplify as a string
@@ -133,17 +147,8 @@ let xFile = Object.assign(Function(), {
      * @param {string} [encoding] - encoding
      */
     saveFile(file, content, encoding) {
-        let prepareDir = (dir) => {
-            if (xFile.existDir(dir)) {
-                return;
-            }
-            if (!xFile.existDir(path.dirname(dir))) {
-                prepareDir(path.dirname(dir))
-            };
-            fs.mkdirSync(dir);
-        }
         if (xUtil.is(file, "string")) {
-            prepareDir(path.dirname(file));
+            xFile.prepareDir(path.dirname(file));
             content = xUtil.is(content, "array") ? xUtil.flattenArray(content).join("\n") :
                 xUtil.is(content, "object") ? JSON.stringify(content) : content.toString();
             fs.writeFileSync(file, content, {
