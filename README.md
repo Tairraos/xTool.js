@@ -1,3 +1,5 @@
+要跑UT请先安装Jest: `npm i jest`
+
 <a name="xtool"></a>
 
 ## xtool
