@@ -28,6 +28,8 @@ let fs = require("fs"),
         isLegalChnNum: xNumber.isLegalChnNum,
         numberAri2Roman: xNumber.numberAri2Roman,
         numberRoman2Ari: xNumber.numberRoman2Ari,
+        getAriNum: xNumber.getAriNum,
+        getChnNum: xNumber.getChnNum,
         decodeHtml: xHtml.decodeHtml
     };
 
